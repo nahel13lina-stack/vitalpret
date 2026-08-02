@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 st.set_page_config(
-    title="VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
+    page_title="VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
     page_icon="🤝",
     layout="large"
 )
