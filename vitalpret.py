@@ -422,7 +422,17 @@ nom_utilisateur = st.text_input(t["nom"])
 ville_pays_utilisateur = st.text_input(t["ville_pays"])
 contact_utilisateur = st.text_input(t["contact"])
 message_utilisateur = st.text_area(t["message"])
+# Section Conditions de publication (Particuliers & Professionnels)
+st.markdown("---")
+st.warning("⚠️ **Rappel important :** \n\n* **Pour les Particuliers :** Vos 3 premières publications sont gratuites. Au-delà, le service devient payant.\n* **Pour les Professionnels :** L'accès et les publications sont payants.")
 
+col_avis1, col_avis2 = st.columns(2)
+with col_avis1:
+    if st.button("📌 En savoir plus (Particuliers)"):
+        st.info("Contactez l'administrateur pour régulariser vos publications au-delà du quota gratuit.")
+with col_avis2:
+    if st.button("💼 Espace Professionnels"):
+        st.info("Tarifs et abonnements disponibles auprès de la plateforme.")
 # Vérification du bannissement
 if contact_utilisateur in db["bannis"]:
     st.error("🚫 Ce compte a été banni par l'administration en raison d'un non-respect des règles de la plateforme.")
