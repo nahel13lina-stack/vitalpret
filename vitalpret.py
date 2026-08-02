@@ -8,7 +8,33 @@ st.set_page_config(
     page_icon="🤝",
     layout="wide"
 )
-
+# Code CSS pour embellir l'interface
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #f7fafc;
+    }
+    .stButton>button {
+        background: linear-gradient(135deg, #3182ce, #2b6cb0);
+        color: white;
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        border: none;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .stButton>button:hover {
+        background: linear-gradient(135deg, #2b6cb0, #2c5282);
+    }
+    </style>
+""", unsafe_allow_html=True)
+# Titre captivant
+st.markdown("""
+    <div style='background: linear-gradient(135deg, #2b6cb0, #2c7a7b); padding: 25px; border-radius: 15px; color: white; text-align: center; margin-bottom: 25px;'>
+        <h1 style='color: white; margin: 0; font-size: 32px;'>🩺 VitalPrêt — Solidarité & Santé 🤝</h1>
+        <p style='font-size: 16px; margin-top: 10px; opacity: 0.9;'>Plateforme internationale de mise en relation pour le matériel médical d'urgence, le partage et le prêt.</p>
+    </div>
+""", unsafe_allow_html=True)
 FICHIER_DB = "donnees_vitalpret.json"
 CODE_ADMIN = "amel2026" # Mot de passe admin configuré
 
@@ -446,10 +472,13 @@ else:
 
 st.markdown("---")
 
-# Section Paiement / CCP et RIB
-st.header(t["section_paiement"])
-st.write(t["info_paiement"])
-st.info(f"🔹 **{t['ccp']}**\n\n🔹 **{t['rib']}**")
+col_p1, col_p2 = st.columns(2)
+    with col_p1:
+        if st.button("💳 Afficher / Copier le CCP"):
+            st.success("Numéro CCP : [Insère ton numéro CCP ici]")
+    with col_p2:
+        if st.button("🏦 Afficher / Copier le RIB"):
+            st.success("Compte Bancaire (RIB) : [Insère ton RIB ici]")
 
 st.markdown("---")
 
