@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 import os
-from datetime import datetime
+from datetime import datetime, date
 
 st.set_page_config(
     page_title="VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
@@ -10,6 +10,7 @@ st.set_page_config(
 )
 
 FICHIER_DB = "donnees_vitalpret.json"
+CODE_ADMIN = "amel2026" # Mot de passe admin sécurisé
 
 def chargeur_donnees():
     if os.path.exists(FICHIER_DB):
@@ -18,7 +19,7 @@ def chargeur_donnees():
                 return json.load(f)
         except:
             pass
-    return {"utilisateurs": [], "annonces": [], "bannis": []}
+    return {"utilisateurs": [], "annonces": [], "bannis": [], "notifications": []}
 
 def sauvegarder_donnees(data):
     with open(FICHIER_DB, "w", encoding="utf-8") as f:
@@ -26,16 +27,34 @@ def sauvegarder_donnees(data):
 
 db = chargeur_donnees()
 
+# Dictionnaire complet des traductions incluant toutes les sections
 traductions = {
     "Français": {
         "titre_principal": "VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
-        "sous_titre": "Mise en relation solidaire pour le matériel médical d'urgence et le partage de soins.",
-        "section_materiel": "Demande et Prêt de Matériel Médical",
+        "sous_titre": "Mise en relation solidaire pour le matériel médical d'urgence, le partage, le prêt ou la vente.",
+        "section_notif": "🔔 Centre de Notifications en Direct",
+        "aucune_notif": "Aucune nouvelle notification pour le moment.",
+        "section_compte": "Type de Compte",
+        "choix_compte": "Sélectionnez votre profil :",
+        "options_compte": ["Particulier", "Professionnel / Association / Pharmacie / ONG"],
+        "section_materiel": "Gestion du Matériel Médical & Type de Transaction",
+        "choix_transaction": "Sélectionnez la nature de l'offre / demande :",
+        "options_transaction": ["Don", "Prêt", "Vente", "Aide financière / Don direct"],
         "choix_materiel": "Sélectionnez le type de matériel :",
-        "options_materiel": ["Concentrateur d'oxygène", "Fauteuil roulant", "Lit médicalisé", "Matériel orthopédique", "Autre matériel"],
-        "saisie_autre": "Précisez l'autre matériel recherché :",
-        "section_paiement": "Modes de Paiement & Solidarité",
-        "info_paiement": "Vous pouvez participer aux frais ou faire un don direct via les coordonnées suivantes :",
+        "options_materiel": ["Concentrateur d'oxygène", "Fauteuil roulant", "Lit médicalisé", "Matériel orthopédique", "Attelles", "Autre matériel"],
+        "saisie_autre": "Précisez l'autre matériel recherché ou proposé :",
+        "section_disponibilite": "📅 Disponibilité du Matériel",
+        "choix_statut_dispo": "État de disponibilité :",
+        "options_statut_dispo": ["Disponible immédiatement", "Disponible à partir d'une date précise", "Indisponible / Actuellement réservé ou pris"],
+        "date_dispo": "Choisissez la date de disponibilité :",
+        "section_coordonnees": "Vos Coordonnées et Message",
+        "nom": "Nom / Prénom ou Nom de l'Association / Pharmacie :",
+        "ville_pays": "Ville et Pays :",
+        "contact": "Téléphone ou Email de contact :",
+        "message": "Précisez votre situation ou vos besoins :",
+        "btn_valider": "Valider ma démarche",
+        "section_paiement": "Modes de Paiement & Solidarité (Requis après 3 publications ou pour les Pros)",
+        "info_paiement": "Au-delà de 3 publications, ou pour les structures professionnelles (ONG, pharmacies), une participation financière est requise via les coordonnées ci-dessous :",
         "ccp": "CCP : [Votre Numéro CCP ici]",
         "rib": "Compte Bancaire (RIB) : [Votre RIB ici]",
         "section_installation": "📱 Installer l'application sur votre appareil",
@@ -46,13 +65,30 @@ traductions = {
     },
     "Anglais": {
         "titre_principal": "VitalPrêt - International Health & Solidarity Platform",
-        "sous_titre": "Solidarity networking for emergency medical equipment and care sharing.",
-        "section_materiel": "Medical Equipment Request & Loan",
+        "sous_titre": "Solidarity networking for emergency medical equipment, sharing, loan or sale.",
+        "section_notif": "🔔 Live Notification Center",
+        "aucune_notif": "No new notifications at the moment.",
+        "section_compte": "Account Type",
+        "choix_compte": "Select your profile:",
+        "options_compte": ["Individual", "Professional / Association / Pharmacy / NGO"],
+        "section_materiel": "Medical Equipment Management & Transaction Type",
+        "choix_transaction": "Select the nature of the offer / request:",
+        "options_transaction": ["Donation", "Loan", "Sale", "Financial aid / Direct donation"],
         "choix_materiel": "Select equipment type:",
-        "options_materiel": ["Oxygen concentrator", "Wheelchair", "Medical bed", "Orthopedic equipment", "Other equipment"],
-        "saisie_autre": "Please specify the other equipment needed:",
-        "section_paiement": "Payment Methods & Solidarity",
-        "info_paiement": "You can contribute or make a direct donation using the following details:",
+        "options_materiel": ["Oxygen concentrator", "Wheelchair", "Medical bed", "Orthopedic equipment", "Splints / Braces", "Other equipment"],
+        "saisie_autre": "Please specify the other equipment needed or offered:",
+        "section_disponibilite": "📅 Equipment Availability",
+        "choix_statut_dispo": "Availability status:",
+        "options_statut_dispo": ["Available immediately", "Available from a specific date", "Unavailable / Currently reserved or taken"],
+        "date_dispo": "Select availability date:",
+        "section_coordonnees": "Your Contact Details and Message",
+        "nom": "Name / Organization Name:",
+        "ville_pays": "City and Country:",
+        "contact": "Phone or Email contact:",
+        "message": "Specify your situation or needs:",
+        "btn_valider": "Validate my request",
+        "section_paiement": "Payment Methods & Solidarity (Required after 3 posts or for Pros)",
+        "info_paiement": "Beyond 3 publications, or for professional structures (NGOs, pharmacies), a financial contribution is required via the details below:",
         "ccp": "CCP: [Your CCP Number here]",
         "rib": "Bank Account (RIB): [Your Bank Details here]",
         "section_installation": "📱 Install the app on your device",
@@ -63,13 +99,30 @@ traductions = {
     },
     "Arabe": {
         "titre_principal": "فيتال بري - المنصة الدولية للصحة والتضامن",
-        "sous_titre": "ربط تضامني للمعدات الطبية العاجلة ومشاركة الرعاية.",
-        "section_materiel": "طلب وإعارة المعدات الطبية",
+        "sous_titre": "ربط تضامني للمعدات الطبية العاجلة والمشاركة، الإعارة أو البيع.",
+        "section_notif": "🔔 مركز الإشعارات المباشرة",
+        "aucune_notif": "لا توجد إشعارات جديدة في الوقت الحالي.",
+        "section_compte": "نوع الحساب",
+        "choix_compte": "اختر ملفك الشخصي:",
+        "options_compte": ["فرد (خاص)", "مهني / جمعية / صيدلية / منظمة غير حكومية"],
+        "section_materiel": "إدارة المعدات الطبية ونوع المعاملة",
+        "choix_transaction": "اختر طبيعة العرض / الطلب:",
+        "options_transaction": ["تبرع", "إعارة", "بيع", "مساعدة مالية / تبرع مباشر"],
         "choix_materiel": "اختر نوع المعدات:",
-        "options_materiel": ["مكثف الأكسجين", "كرسي متحرك", "سرير طبي", "معدات تقويم العظام", "معدات أخرى"],
-        "saisie_autre": "يرجى تحديد المعدات الأخرى المطلوبة:",
-        "section_paiement": "طرق الدفع والتضامن",
-        "info_paiement": "يمكنك المساهمة أو التبرع مباشرة عبر التفاصيل التالية:",
+        "options_materiel": ["مكثف الأكسجين", "كرسي متحرك", "سرير طبي", "معدات تقويم العظام", "جبائر / attelles", "معدات أخرى"],
+        "saisie_autre": "يرجى تحديد المعدات الأخرى المطلوبة أو المعروضة:",
+        "section_disponibilite": "📅 توفر المعدات",
+        "choix_statut_dispo": "حالة التوفر:",
+        "options_statut_dispo": ["متوفر حاليا فوريا", "متوفر ابتداء من تاريخ محدد", "غير متوفر / محجوز حاليا"],
+        "date_dispo": "اختر تاريخ التوفر:",
+        "section_coordonnees": "معلومات الاتصال والرسالة الخاصة بك",
+        "nom": "الاسم واللقب أو اسم الجمعية / الصيدلية:",
+        "ville_pays": "المدينة والبلد:",
+        "contact": "رقم الهاتف أو البريد الإلكتروني للاتصال:",
+        "message": "وضح حالتك أو احتياجاتك:",
+        "btn_valider": "تأكيد طلبي",
+        "section_paiement": "طرق الدفع والتضامن (مطلوبة بعد 3 منشورات أو للطرف المهني)",
+        "info_paiement": "أكثر من 3 منشورات، أو بالنسبة للجهات المهنية (الصيدليات، المنظمات)، يتطلب الأمر مساهمة مالية عبر التفاصيل أدناه:",
         "ccp": "رقم البريد الجزائري (CCP): [أدخل رقم الـ CCP هنا]",
         "rib": "الحساب البنكي (RIB): [أدخل تفاصيل الحساب هنا]",
         "section_installation": "📱 تثبيت التطبيق على جهازك",
@@ -78,15 +131,66 @@ traductions = {
         "inst_iphone": "على آيفون: اضغط على زر المشاركة ثم 'إضافة إلى الشاشة الرئيسية'.",
         "inst_pc": "على الكمبيوتر: اضغط على رمز التثبيت في شريط العنوان."
     },
+    "Espagnol": {
+        "titre_principal": "VitalPrêt - Plataforma Internacional de Salud y Solidaridad",
+        "sous_titre": "Red de solidaridad para equipos médicos de emergencia, compartición, préstamo o venta.",
+        "section_notif": "🔔 Centro de Notificaciones en Vivo",
+        "aucune_notif": "No hay nuevas notificaciones por el momento.",
+        "section_compte": "Tipo de Cuenta",
+        "choix_compte": "Seleccione su perfil:",
+        "options_compte": ["Particular", "Profesional / Asociación / Farmacia / ONG"],
+        "section_materiel": "Gestión de Material Médico y Tipo de Transacción",
+        "choix_transaction": "Seleccione la naturaleza de la oferta / solicitud:",
+        "options_transaction": ["Donación", "Préstamo", "Venta", "Ayuda financiera / Donación directa"],
+        "choix_materiel": "Seleccione el tipo de material:",
+        "options_materiel": ["Concentrador de oxígeno", "Silla de ruedas", "Cama médica", "Material ortopédico", "Férulas / Attelles", "Otro material"],
+        "saisie_autre": "Especifique el otro material necesario u ofrecido:",
+        "section_disponibilite": "📅 Disponibilidad del Material",
+        "choix_statut_dispo": "Estado de disponibilidad:",
+        "options_statut_dispo": ["Disponible inmediatamente", "Disponible a partir de una fecha específica", "No disponible / Actualmente reservado"],
+        "date_dispo": "Elija la fecha de disponibilidad:",
+        "section_coordonnees": "Sus Datos de Contacto y Mensaje",
+        "nom": "Nombre y Apellidos o Nombre de la Asociación / Farmacia:",
+        "ville_pays": "Ciudad y País:",
+        "contact": "Teléfono o Correo electrónico de contacto:",
+        "message": "Especifique su situación o necesidades:",
+        "btn_valider": "Validar mi solicitud",
+        "section_paiement": "Métodos de Pago y Solidaridad (Requerido tras 3 publicaciones o para Profesionales)",
+        "info_paiement": "Más allá de 3 publicaciones, o para estructuras profesionales (ONG, farmacias), se requiere una aportación a través de los datos siguientes:",
+        "ccp": "CCP: [Su número CCP aquí]",
+        "rib": "Cuenta Bancaria (RIB): [Sus datos bancarios aquí]",
+        "section_installation": "📱 Instalar la aplicación en su dispositivo",
+        "texte_installation": "Puede instalar esta herramienta directamente en su teléfono, tableta o computadora:",
+        "inst_android": "En Android (Chrome): Toque los tres puntos y seleccione 'Instalar aplicación'.",
+        "inst_iphone": "En iPhone / iPad (Safari): Toque el botón compartir y seleccione 'Añadir a la pantalla de inicio'.",
+        "inst_pc": "En Computadora: Haga clic en el icono de instalación en la barra de direcciones."
+    },
     "Allemand": {
         "titre_principal": "VitalPrêt - Internationale Gesundheits- und Solidaritätsplattform",
-        "sous_titre": "Solidarische Vernetzung für medizinische Notfallausrüstung.",
-        "section_materiel": "Anfrage und Verleih von medizinischer Ausrüstung",
+        "sous_titre": "Solidarische Vernetzung für medizinische Notfallausrüstung, Verleih oder Verkauf.",
+        "section_notif": "🔔 Live-Benachrichtigungscenter",
+        "aucune_notif": "Keine neuen Benachrichtigungen im Moment.",
+        "section_compte": "Kontotyp",
+        "choix_compte": "Wählen Sie Ihr Profil:",
+        "options_compte": ["Privatperson", "Gewerblich / Verein / Apotheke / NGO"],
+        "section_materiel": "Verwaltung medizinischer Ausrüstung & Transaktionsart",
+        "choix_transaction": "Wählen Sie die Art der Aktion:",
+        "options_transaction": ["Spende", "Verleih", "Verkauf", "Finanzielle Hilfe / Direkte Spende"],
         "choix_materiel": "Wählen Sie den Typ der Ausrüstung:",
-        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Sonstige Ausrüstung"],
-        "saisie_autre": "Bitte geben Sie die andere benötigte Ausrüstung an:",
-        "section_paiement": "Zahlungsmethoden & Solidarität",
-        "info_paiement": "Sie können über die folgenden Daten beitragen oder direkt spenden:",
+        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Schienen / Attelles", "Sonstige Ausrüstung"],
+        "saisie_autre": "Bitte geben Sie die andere benötigte oder angebotene Ausrüstung an:",
+        "section_disponibilite": "📅 Verfügbarkeit der Ausrüstung",
+        "choix_statut_dispo": "Verfügbarkeitsstatus:",
+        "options_statut_dispo": ["Sofort verfügbar", "Verfügbar ab einem bestimmten Datum", "Nicht verfügbar / Derzeit reserviert"],
+        "date_dispo": "Wählen Sie das Verfügbarkeitsdatum:",
+        "section_coordonnees": "Ihre Kontaktdaten und Nachricht",
+        "nom": "Name / Name des Vereins / Apotheke:",
+        "ville_pays": "Stadt und Land:",
+        "contact": "Telefon oder E-Mail-Kontakt:",
+        "message": "Beschreiben Sie Ihre Situation oder Ihren Bedarf:",
+        "btn_valider": "Anfrage bestätigen",
+        "section_paiement": "Zahlungsmethoden & Solidarität (Erforderlich nach 3 Beiträgen oder für Profis)",
+        "info_paiement": "Nach 3 Beiträgen oder für gewerbliche Strukturen ist ein Beitrag über die folgenden Daten erforderlich:",
         "ccp": "CCP: [Ihre CCP-Nummer hier]",
         "rib": "Bankkonto (RIB): [Ihre Bankdaten hier]",
         "section_installation": "📱 App installieren",
@@ -97,13 +201,30 @@ traductions = {
     },
     "Russe": {
         "titre_principal": "VitalPrêt - Международная платформа здоровья и солидарности",
-        "sous_titre": "Связь для экстренного медицинского оборудования и помощи.",
-        "section_materiel": "Запрос и аренда медицинского оборудования",
+        "sous_titre": "Связь для экстренного медицинского оборудования, аренды или продажи.",
+        "section_notif": "🔔 Центр живых уведомлений",
+        "aucune_notif": "Нет новых уведомлений на данный момент.",
+        "section_compte": "Тип аккаунта",
+        "choix_compte": "Выберите ваш профиль:",
+        "options_compte": ["Частное лицо", "Профессионал / Ассоциация / Аптека / НПО"],
+        "section_materiel": "Управление оборудованием и тип сделки",
+        "choix_transaction": "Выберите тип действия:",
+        "options_transaction": ["Пожертвование", "Аренда", "Продажа", "Финансовая помощь / Прямое пожертвование"],
         "choix_materiel": "Выберите тип оборудования:",
-        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Другое оборудование"],
-        "saisie_autre": "Уточните другое необходимое оборудование:",
-        "section_paiement": "Способы оплаты и солидарность",
-        "info_paiement": "Вы можете сделать вклад или прямой перевод по следующим реквизитам:",
+        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Шины / Attelles", "Другое оборудование"],
+        "saisie_autre": "Уточните другое необходимое или предлагаемое оборудование:",
+        "section_disponibilite": "📅 Доступность оборудования",
+        "choix_statut_dispo": "Статус доступности:",
+        "options_statut_dispo": ["Доступно немедленно", "Доступно с определенной даты", "Недоступно / Зарезервировано"],
+        "date_dispo": "Выберите дату доступности:",
+        "section_coordonnees": "Ваши контактные данные и сообщение",
+        "nom": "ФИО или название организации / аптеки:",
+        "ville_pays": "Город и страна:",
+        "contact": "Телефон или email для связи:",
+        "message": "Укажите вашу ситуацию или потребности:",
+        "btn_valider": "Подтвердить запрос",
+        "section_paiement": "Способы оплаты и солидарность (Требуется после 3 публикаций или для профи)",
+        "info_paiement": "Свыше 3 публикаций или для профессиональных структур требуется платеж по следующим реквизитам:",
         "ccp": "CCP: [Ваш номер CCP здесь]",
         "rib": "Банковский счет (RIB): [Ваши реквизиты здесь]",
         "section_installation": "📱 Установить приложение",
@@ -114,13 +235,30 @@ traductions = {
     },
     "Mandarin": {
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
-        "sous_titre": "紧急医疗设备与关怀共享的互助网络。",
-        "section_materiel": "医疗设备申请与借用",
+        "sous_titre": "紧急医疗设备共享、借用、租赁或出售的互助网络。",
+        "section_notif": "🔔 实时通知中心",
+        "aucune_notif": "目前没有新的通知。",
+        "section_compte": "账户类型",
+        "choix_compte": "选择您的身份：",
+        "options_compte": ["个人用户", "专业人员 / 协会 / 药房 / 非政府组织"],
+        "section_materiel": "医疗设备管理与交易类型",
+        "choix_transaction": "选择操作性质：",
+        "options_transaction": ["捐赠", "借用", "出售", "经济援助 / 直接捐款"],
         "choix_materiel": "选择设备类型：",
-        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "其他设备"],
-        "saisie_autre": "请说明您需要的其他设备：",
-        "section_paiement": "支付方式与爱心捐助",
-        "info_paiement": "您可以通过以下信息进行资助或直接捐款：",
+        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "支具 / Attelles", "其他设备"],
+        "saisie_autre": "请说明您需要或提供的其他设备：",
+        "section_disponibilite": "📅 设备可用性",
+        "choix_statut_dispo": "可用状态：",
+        "options_statut_dispo": ["即时可用", "从特定日期起可用", "不可用 / 目前已预订"],
+        "date_dispo": "选择可用日期：",
+        "section_coordonnees": "您的联系方式与留言",
+        "nom": "姓名或机构 / 药房名称：",
+        "ville_pays": "城市与国家：",
+        "contact": "联系电话或邮箱：",
+        "message": "请说明您的具体情况或需求：",
+        "btn_valider": "确认提交",
+        "section_paiement": "支付方式与爱心捐助（超过3次发布或专业用户必需）",
+        "info_paiement": "超过3条发布记录，或针对专业机构（药房、NGO），需通过以下信息进行费用结算：",
         "ccp": "邮政账户 (CCP)：[在此处输入您的CCP]",
         "rib": "银行账户 (RIB)：[在此处输入您的RIB]",
         "section_installation": "📱 在您的设备上安装应用",
@@ -131,35 +269,165 @@ traductions = {
     }
 }
 
-langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / اللغة", list(traductions.keys()))
+# Barre latérale pour la sélection de la langue et l'accès Administrateur
+langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / Idioma / اللغة", list(traductions.keys()))
 t = traductions[langue_choisie]
 
+st.sidebar.markdown("---")
+st.sidebar.subheader("🔐 Espace Administrateur (Amel)")
+mot_de_passe_saisi = st.sidebar.text_input("Mot de passe admin", type="password")
+
+# En-tête de l'application
 st.title(t["titre_principal"])
 st.write(t["sous_titre"])
 
+# Affichage de l'horloge
 maintenant = datetime.now().strftime("%d/%m/%Y à %H:%M")
 st.sidebar.markdown(f"📅 **Date & Heure :** {maintenant}")
 
+# Gestion de l'espace Administrateur si le mot de passe est correct
+if mot_de_passe_saisi == CODE_ADMIN:
+    st.sidebar.success("✅ Connecté en tant qu'Administrateur")
+    st.markdown("---")
+    st.header("🛠️ Panneau de Contrôle Administrateur")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("📋 Liste des Annonces / Inscrits")
+        if db["annonces"]:
+            for idx, ann in enumerate(db["annonces"]):
+                dispo_info = f"Dispo: {ann.get('disponibilite', 'Immédiate')}"
+                st.write(f"**{idx+1}. [{ann['type_compte']}]** {ann['nom']} ({ann['ville_pays']}) - *{ann['transaction']} : {ann['materiel']}* | 🕒 {dispo_info} (Contact: {ann['contact']})")
+        else:
+            st.write("Aucune annonce enregistrée pour le moment.")
+            
+    with col2:
+        st.subheader("🚫 Gestion des Bannissements")
+        st.write("Utilisateurs actuellement bannis :", db["bannis"] if db["bannis"] else "Aucun")
+        
+        contact_a_gerer = st.text_input("Entrer le contact (Email/Téléphone) à bannir ou débannir :")
+        col_b1, col_b2 = st.columns(2)
+        with col_b1:
+            if st.button("Bannir cet utilisateur"):
+                if contact_a_gerer and contact_a_gerer not in db["bannis"]:
+                    db["bannis"].append(contact_a_gerer)
+                    sauvegarder_donnees(db)
+                    st.success(f"L'utilisateur {contact_a_gerer} a été banni.")
+                else:
+                    st.warning("Contact invalide ou déjà banni.")
+        with col_b2:
+            if st.button("Débannir cet utilisateur"):
+                if contact_a_gerer in db["bannis"]:
+                    db["bannis"].remove(contact_a_gerer)
+                    sauvegarder_donnees(db)
+                    st.success(f"L'utilisateur {contact_a_gerer} a été débannit.")
+                else:
+                    st.warning("Ce contact n'est pas dans la liste des bannis.")
+    st.markdown("---")
+
+# Section Centre de Notifications en Direct
+st.header(t["section_notif"])
+if db["notifications"]:
+    for notif in reversed(db["notifications"][-5:]):
+        st.info(f"📢 **[{notif['date']}]** {notif['texte']}")
+else:
+    st.write(t["aucune_notif"])
+
 st.markdown("---")
 
+# Section Type de Compte
+st.header(t["section_compte"])
+type_compte = st.radio(t["choix_compte"], t["options_compte"])
+
+st.markdown("---")
+
+# Section Gestion du Matériel et Nature de la Transaction (Don, Prêt, Vente)
 st.header(t["section_materiel"])
+type_transaction = st.selectbox(t["choix_transaction"], t["options_transaction"])
 type_materiel = st.selectbox(t["choix_materiel"], t["options_materiel"])
 
 autre_materiel = ""
 if type_materiel == t["options_materiel"][-1]:  
     autre_materiel = st.text_input(t["saisie_autre"])
 
-if st.button("Valider ma démarche"):
-    st.success("Votre demande a bien été enregistrée dans le système.")
+st.markdown("---")
+
+# Section Disponibilité du Matériel (Immédiate, Date précise ou Indisponible)
+st.header(t["section_disponibilite"])
+statut_dispo = st.radio(t["choix_statut_dispo"], t["options_statut_dispo"])
+
+date_disponibilite_str = "Immédiate"
+if statut_dispo == t["options_statut_dispo"][1]: 
+    date_choisie = st.date_input(t["date_dispo"], value=date.today())
+    date_disponibilite_str = f"À partir du {date_choisie.strftime('%d/%m/%Y')}"
+elif statut_dispo == t["options_statut_dispo"][2]: 
+    date_disponibilite_str = "Indisponible / Réservé"
 
 st.markdown("---")
 
+# Section Coordonnées et Message de l'utilisateur (AVEC TOUS LES CHAMPS REQUIS)
+st.header(t["section_coordonnees"])
+nom_utilisateur = st.text_input(t["nom"])
+ville_pays_utilisateur = st.text_input(t["ville_pays"])
+contact_utilisateur = st.text_input(t["contact"])
+message_utilisateur = st.text_area(t["message"])
+
+# Vérification du bannissement
+if contact_utilisateur in db["bannis"]:
+    st.error("🚫 Ce compte a été banni par l'administration en raison d'un non-respect des règles de la plateforme.")
+else:
+    publications_utilisateur = [a for a in db["annonces"] if a.get("contact") == contact_utilisateur]
+    limite_depassee = (type_compte != "Particulier" or len(publications_utilisateur) >= 3)
+
+    if limite_depassee:
+        st.warning("⚠️ **Mode Payant / Participation Requis :** En tant que structure professionnelle / ONG / Pharmacie, ou après avoir dépassé 3 publications gratuites en tant que particulier, un règlement via les modes de paiement ci-dessous est requis pour valider l'action.")
+
+    if st.button(t["btn_valider"]):
+        if nom_utilisateur and contact_utilisateur:
+            if len(publications_utilisateur) >= 5 and type_compte == "Particulier":
+                if contact_utilisateur not in db["bannis"]:
+                    db["bannis"].append(contact_utilisateur)
+                    sauvegarder_donnees(db)
+                st.error("🚫 Limite maximale de publications atteinte. Votre compte a été automatiquement banni.")
+            else:
+                materiel_choisi = autre_materiel if type_materiel == t["options_materiel"][-1] else type_materiel
+                
+                # Enregistrement de l'annonce avec les coordonnées complètes
+                nouvelle_annonce = {
+                    "type_compte": type_compte,
+                    "transaction": type_transaction,
+                    "materiel": materiel_choisi,
+                    "disponibilite": date_disponibilite_str,
+                    "nom": nom_utilisateur,
+                    "ville_pays": ville_pays_utilisateur,
+                    "contact": contact_utilisateur,
+                    "message": message_utilisateur,
+                    "date": maintenant
+                }
+                db["annonces"].append(nouvelle_annonce)
+                
+                # Création de la notification en direct
+                texte_notif = f"Nouvelle action de **{nom_utilisateur}** ({ville_pays_utilisateur}) - *{type_compte}* : **{type_transaction}** de *{materiel_choisi}* (Dispo: {date_disponibilite_str})."
+                db["notifications"].append({
+                    "texte": texte_notif,
+                    "date": maintenant
+                })
+                
+                sauvegarder_donnees(db)
+                st.success("✅ Vos coordonnées, votre démarche et la disponibilité ont bien été enregistrées et notifiées en direct sur la plateforme !")
+        else:
+            st.warning("⚠️ Veuillez s'il vous plaît remplir au moins votre nom et vos coordonnées de contact.")
+
+st.markdown("---")
+
+# Section Paiement / CCP et RIB
 st.header(t["section_paiement"])
 st.write(t["info_paiement"])
 st.info(f"🔹 **{t['ccp']}**\n\n🔹 **{t['rib']}**")
 
 st.markdown("---")
 
+# Section Guide d'Installation de l'application
 st.header(t["section_installation"])
 st.write(t["texte_installation"])
 st.markdown(f"""
