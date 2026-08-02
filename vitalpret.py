@@ -474,11 +474,13 @@ st.markdown("---")
 
 col_p1, col_p2 = st.columns(2)
 with col_p1:
-        if st.button("💳 Afficher / Copier le CCP"):
-            st.success("Numéro CCP : [Insère ton numéro CCP ici]")
+    if st.button("🪪 Afficher / Copier le CCP"):
+        st.success("CCP : 0023456789 Clé 12")
 with col_p2:
-        if st.button("🏦 Afficher / Copier le RIB"):
-            st.success("Compte Bancaire (RIB) : [Insère ton RIB ici]")
+    if st.button("💳 Afficher / Copier le RIB"):
+        st.success("RIB : 001 00234 002345678912")
+
+        
 
 st.markdown("---")
 
