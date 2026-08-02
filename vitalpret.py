@@ -425,7 +425,20 @@ message_utilisateur = st.text_area(t["message"])
 # Section Conditions de publication (Particuliers & Professionnels)
 st.markdown("---")
 st.warning("⚠️ **Rappel important :** \n\n* **Pour les Particuliers :** Vos 3 premières publications sont gratuites. Au-delà, le service devient payant.\n* **Pour les Professionnels :** L'accès et les publications sont payants.")
+# Section Conditions de publication & Soutien
+st.markdown("---")
+st.warning("⚠️ **Rappel important :** \n\n* **Pour les Particuliers :** Vos 3 premières publications sont gratuites. Au-delà de 3 publications, le service devient payant.\n* **Pour les Professionnels :** L'accès et les publications sont payants.")
 
+col_avis1, col_avis2, col_avis3 = st.columns(3)
+with col_avis1:
+    if st.button("📌 Particuliers"):
+        st.info("Contactez l'administrateur au-delà de 3 publications.")
+with col_avis2:
+    if st.button("💼 Professionnels"):
+        st.info("Espace payant sur abonnement ou publication.")
+with col_avis3:
+    if st.button("☕ Offrir un café"):
+        st.success("Barakallahu feek ! Merci de donner un coup de pouce à l'outil pour le maintenir solidaire et actif 💖")
 col_avis1, col_avis2 = st.columns(2)
 with col_avis1:
     if st.button("📌 En savoir plus (Particuliers)"):
