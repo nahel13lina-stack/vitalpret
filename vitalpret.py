@@ -41,9 +41,9 @@ traductions = {
         "rib": "Compte Bancaire (RIB) : [Votre RIB ici]",
         "section_installation": "📱 Installer l'application sur votre appareil",
         "texte_installation": "Vous pouvez installer cet outil directement sur votre téléphone, tablette ou ordinateur :",
-        "inst_android": "**Sur Android (Chrome) :** Appuyez sur les trois petits points, puis choisissez **'Installer l'application'**.",
-        "inst_iphone": "**Sur iPhone / iPad (Safari) :** Appuyez sur le bouton de partage, puis sélectionnez **'Sur l'écran d'accueil'**.",
-        "inst_pc": "**Sur Ordinateur :** Cliquez sur l'icône d'installation dans la barre d'adresse."
+        "inst_android": "Sur Android (Chrome) : Appuyez sur les trois points, puis choisissez 'Installer l'application'.",
+        "inst_iphone": "Sur iPhone / iPad (Safari) : Appuyez sur le bouton de partage, puis sélectionnez 'Sur l'écran d'accueil'.",
+        "inst_pc": "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse."
     },
     "Anglais": {
         "titre_principal": "VitalPrêt - International Health & Solidarity Platform",
@@ -58,9 +58,9 @@ traductions = {
         "rib": "Bank Account (RIB): [Your Bank Details here]",
         "section_installation": "📱 Install the app on your device",
         "texte_installation": "You can install this tool directly on your phone, tablet, or computer:",
-        "inst_android": "**On Android (Chrome):** Tap the three dots, then select **'Install app'**.",
-        "inst_iphone": "**On iPhone / iPad (Safari):** Tap the share button, then select **'Add to Home Screen'**.",
-        "inst_pc": "**On Computer:** Click the install icon in the address bar."
+        "inst_android": "On Android (Chrome): Tap the three dots, then select 'Install app'.",
+        "inst_iphone": "On iPhone / iPad (Safari): Tap the share button, then select 'Add to Home Screen'.",
+        "inst_pc": "On Computer: Click the install icon in the address bar."
     },
     "Arabe": {
         "titre_principal": "فيتال بري - المنصة الدولية للصحة والتضامن",
@@ -75,9 +75,9 @@ traductions = {
         "rib": "الحساب البنكي (RIB): [أدخل تفاصيل الحساب هنا]",
         "section_installation": "📱 تثبيت التطبيق على جهازك",
         "texte_installation": "يمكنك تثبيت هذه الأداة مباشرة على هاتفك أو حاسوبك:",
-        "inst_android": "**على أندرويد:** اضغط على النقاط الثلاث ثم اختر **'تثبيت التطبيق'**.",
-        "inst_iphone": "**على آيفون:** اضغط على زر المشاركة ثم **'إضافة إلى الشاشة الرئيسية'**.",
-        "inst_pc": "**على الكمبيوتر:** اضغط على رمز التثبيت في شريط العنوان."
+        "inst_android": "على أندرويد: اضغط على النقاط الثلاث ثم اختر 'تثبيت التطبيق'.",
+        "inst_iphone": "على آيفون: اضغط على زر المشاركة ثم 'إضافة إلى الشاشة الرئيسية'.",
+        "inst_pc": "على الكمبيوتر: اضغط على رمز التثبيت في شريط العنوان."
     },
     "Allemand": {
         "titre_principal": "VitalPrêt - Internationale Gesundheits- und Solidaritätsplattform",
@@ -92,9 +92,9 @@ traductions = {
         "rib": "Bankkonto (RIB): [Ihre Bankdaten hier]",
         "section_installation": "📱 App installieren",
         "texte_installation": "Installieren Sie dieses Tool auf Ihrem Gerät:",
-        "inst_android": "**Auf Android:** Tippen Sie auf die drei Punkte und wählen Sie **'App installieren'**.",
-        "inst_iphone": "**Auf iPhone:** Tippen Sie auf das Teilen-Symbol und wählen Sie **'Zum Home-Bildschirm'**.",
-        "inst_pc": "**Auf PC:** Klicken Sie auf das Installieren-Symbol in der Adressleiste."
+        "inst_android": "Auf Android: Tippen Sie auf die drei Punkte und wählen Sie 'App installieren'.",
+        "inst_iphone": "Auf iPhone: Tippen Sie auf das Teilen-Symbol und wählen Sie 'Zum Home-Bildschirm'.",
+        "inst_pc": "Auf PC: Klicken Sie auf das Installieren-Symbol in der Adressleiste."
     },
     "Russe": {
         "titre_principal": "VitalPrêt - Международная платформа здоровья и солидарности",
@@ -109,9 +109,9 @@ traductions = {
         "rib": "Банковский счет (RIB): [Ваши реквизиты здесь]",
         "section_installation": "📱 Установить приложение",
         "texte_installation": "Установите этот инструмент на устройство:",
-        "inst_android": "**На Android:** Нажмите три точки и выберите **'Установить приложение'**.",
-        "inst_iphone": "**На iPhone:** Нажмите «Поделиться» и выберите **'На экран «Домой»'**.",
-        "inst_pc": "**На ПК:** Нажмите значок установки в адресной строке."
+        "inst_android": "На Android: Нажмите три точки и выберите 'Установить приложение'.",
+        "inst_iphone": "На iPhone: Нажмите «Поделиться» и выберите 'На экран «Домой»'.",
+        "inst_pc": "На ПК: Нажмите значок установки в адресной строке."
     },
     "Mandarin": {
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
@@ -126,9 +126,9 @@ traductions = {
         "rib": "银行账户 (RIB)：[在此处输入您的RIB]",
         "section_installation": "📱 在您的设备上安装应用",
         "texte_installation": "您可以直接将此工具安装到手机或电脑上：",
-        "inst_android": "**安卓手机：** 点击右上角三个点，选择 **'安装应用'**。",
-        "inst_iphone": "**苹果手机：** 点击分享按钮，选择 **'添加到主屏幕'**。",
-        "inst_pc": "**电脑端：** 点击浏览器地址栏右侧的安装图标。"
+        "inst_android": "安卓手机：点击右上角三个点，选择 '安装应用'。",
+        "inst_iphone": "苹果手机：点击分享按钮，选择 '添加到主屏幕'。",
+        "inst_pc": "电脑端：点击浏览器地址栏右侧的安装图标。"
     }
 }
 
@@ -151,7 +151,7 @@ st.header(t["section_materiel"])
 type_materiel = st.selectbox(t["choix_materiel"], t["options_materiel"])
 
 autre_materiel = ""
-if type_materiel == t["options_materiel"][-1]:  # Si "Autre matériel" est sélectionné
+if type_materiel == t["options_materiel"][-1]:  
     autre_materiel = st.text_input(t["saisie_autre"])
 
 if st.button("Valider ma démarche"):
