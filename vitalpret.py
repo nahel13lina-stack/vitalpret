@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 FICHIER_DB = "donnees_vitalpret.json"
-CODE_ADMIN = "amel2026" # Mot de passe admin sécurisé
+CODE_ADMIN = "amel2026" # Mot de passe admin configuré
 
 def chargeur_donnees():
     if os.path.exists(FICHIER_DB):
@@ -27,7 +27,7 @@ def sauvegarder_donnees(data):
 
 db = chargeur_donnees()
 
-# Dictionnaire complet des traductions incluant toutes les sections
+# Dictionnaire complet des traductions incluant la liste élargie du matériel
 traductions = {
     "Français": {
         "titre_principal": "VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
@@ -41,7 +41,19 @@ traductions = {
         "choix_transaction": "Sélectionnez la nature de l'offre / demande :",
         "options_transaction": ["Don", "Prêt", "Vente", "Aide financière / Don direct"],
         "choix_materiel": "Sélectionnez le type de matériel :",
-        "options_materiel": ["Concentrateur d'oxygène", "Fauteuil roulant", "Lit médicalisé", "Matériel orthopédique", "Attelles", "Autre matériel"],
+        "options_materiel": [
+            "Concentrateur d'oxygène", 
+            "Fauteuil roulant", 
+            "Lit médicalisé", 
+            "Matériel orthopédique", 
+            "Attelles", 
+            "Bouteille d'oxygène / Manodétendeur",
+            "Déambulateur / Cannes anglaises",
+            "Tensiomètre / Matériel de diagnostic",
+            "Pousse-seringue / Matériel perfusion",
+            "Matelas anti-escarres",
+            "Autre matériel"
+        ],
         "saisie_autre": "Précisez l'autre matériel recherché ou proposé :",
         "section_disponibilite": "📅 Disponibilité du Matériel",
         "choix_statut_dispo": "État de disponibilité :",
@@ -75,7 +87,7 @@ traductions = {
         "choix_transaction": "Select the nature of the offer / request:",
         "options_transaction": ["Donation", "Loan", "Sale", "Financial aid / Direct donation"],
         "choix_materiel": "Select equipment type:",
-        "options_materiel": ["Oxygen concentrator", "Wheelchair", "Medical bed", "Orthopedic equipment", "Splints / Braces", "Other equipment"],
+        "options_materiel": ["Oxygen concentrator", "Wheelchair", "Medical bed", "Orthopedic equipment", "Splints / Braces", "Oxygen tank", "Walker / Crutches", "Blood pressure monitor", "Other equipment"],
         "saisie_autre": "Please specify the other equipment needed or offered:",
         "section_disponibilite": "📅 Equipment Availability",
         "choix_statut_dispo": "Availability status:",
@@ -109,7 +121,7 @@ traductions = {
         "choix_transaction": "اختر طبيعة العرض / الطلب:",
         "options_transaction": ["تبرع", "إعارة", "بيع", "مساعدة مالية / تبرع مباشر"],
         "choix_materiel": "اختر نوع المعدات:",
-        "options_materiel": ["مكثف الأكسجين", "كرسي متحرك", "سرير طبي", "معدات تقويم العظام", "جبائر / attelles", "معدات أخرى"],
+        "options_materiel": ["مكثف الأكسجين", "كرسي متحرك", "سرير طبي", "معدات تقويم العظام", "جبائر / attelles", "قارورة أكسجين", "مشاية / عكاكيز", "جهاز قياس الضغط", "معدات أخرى"],
         "saisie_autre": "يرجى تحديد المعدات الأخرى المطلوبة أو المعروضة:",
         "section_disponibilite": "📅 توفر المعدات",
         "choix_statut_dispo": "حالة التوفر:",
@@ -143,7 +155,7 @@ traductions = {
         "choix_transaction": "Seleccione la naturaleza de la oferta / solicitud:",
         "options_transaction": ["Donación", "Préstamo", "Venta", "Ayuda financiera / Donación directa"],
         "choix_materiel": "Seleccione el tipo de material:",
-        "options_materiel": ["Concentrador de oxígeno", "Silla de ruedas", "Cama médica", "Material ortopédico", "Férulas / Attelles", "Otro material"],
+        "options_materiel": ["Concentrador de oxígeno", "Silla de ruedas", "Cama médica", "Material ortopédico", "Férulas / Attelles", "Bombona de oxígeno", "Andador / Muletas", "Otro material"],
         "saisie_autre": "Especifique el otro material necesario u ofrecido:",
         "section_disponibilite": "📅 Disponibilidad del Material",
         "choix_statut_dispo": "Estado de disponibilidad:",
@@ -158,7 +170,7 @@ traductions = {
         "section_paiement": "Métodos de Pago y Solidaridad (Requerido tras 3 publicaciones o para Profesionales)",
         "info_paiement": "Más allá de 3 publicaciones, o para estructuras profesionales (ONG, farmacias), se requiere una aportación a través de los datos siguientes:",
         "ccp": "CCP: [Su número CCP aquí]",
-        "rib": "Cuenta Bancaria (RIB): [Sus datos bancarios aquí]",
+        "rib": "Cuenta Bancaria (RIB): [Su datos bancarios aquí]",
         "section_installation": "📱 Instalar la aplicación en su dispositivo",
         "texte_installation": "Puede instalar esta herramienta directamente en su teléfono, tableta o computadora:",
         "inst_android": "En Android (Chrome): Toque los tres puntos y seleccione 'Instalar aplicación'.",
@@ -177,7 +189,7 @@ traductions = {
         "choix_transaction": "Wählen Sie die Art der Aktion:",
         "options_transaction": ["Spende", "Verleih", "Verkauf", "Finanzielle Hilfe / Direkte Spende"],
         "choix_materiel": "Wählen Sie den Typ der Ausrüstung:",
-        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Schienen / Attelles", "Sonstige Ausrüstung"],
+        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Schienen / Attelles", "Sauerstoffflasche", "Gehwagen / Krücken", "Sonstige Ausrüstung"],
         "saisie_autre": "Bitte geben Sie die andere benötigte oder angebotene Ausrüstung an:",
         "section_disponibilite": "📅 Verfügbarkeit der Ausrüstung",
         "choix_statut_dispo": "Verfügbarkeitsstatus:",
@@ -211,7 +223,7 @@ traductions = {
         "choix_transaction": "Выберите тип действия:",
         "options_transaction": ["Пожертвование", "Аренда", "Продажа", "Финансовая помощь / Прямое пожертвование"],
         "choix_materiel": "Выберите тип оборудования:",
-        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Шины / Attelles", "Другое оборудование"],
+        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Шины / Attelles", "Кислородный баллон", "Ходунки / Костыли", "Другое оборудование"],
         "saisie_autre": "Уточните другое необходимое или предлагаемое оборудование:",
         "section_disponibilite": "📅 Доступность оборудования",
         "choix_statut_dispo": "Статус доступности:",
@@ -245,7 +257,7 @@ traductions = {
         "choix_transaction": "选择操作性质：",
         "options_transaction": ["捐赠", "借用", "出售", "经济援助 / 直接捐款"],
         "choix_materiel": "选择设备类型：",
-        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "支具 / Attelles", "其他设备"],
+        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "支具 / Attelles", "氧气瓶", "助行器 / 拐杖", "其他设备"],
         "saisie_autre": "请说明您需要或提供的其他设备：",
         "section_disponibilite": "📅 设备可用性",
         "choix_statut_dispo": "可用状态：",
@@ -285,7 +297,19 @@ st.write(t["sous_titre"])
 maintenant = datetime.now().strftime("%d/%m/%Y à %H:%M")
 st.sidebar.markdown(f"📅 **Date & Heure :** {maintenant}")
 
-# Gestion de l'espace Administrateur si le mot de passe est correct
+# Fonction pour attribuer une couleur selon le type de transaction
+def obtenir_pastille_couleur(transaction):
+    trans_lower = transaction.lower()
+    if "don" in trans_lower and "aide" not in trans_lower:
+        return "🟢" # Vert pour Don
+    elif "prêt" in trans_lower or "loan" in trans_lower or "إعارة" in trans_lower or "préstamo" in trans_lower or "verleih" in trans_lower or "аренда" in trans_lower or "借用" in trans_lower:
+        return "🔵" # Bleu pour Prêt
+    elif "vente" in trans_lower or "sale" in trans_lower or "بيع" in trans_lower or "venta" in trans_lower or "verkauf" in trans_lower or "продажа" in trans_lower or "出售" in trans_lower:
+        return "🟠" # Orange pour Vente
+    else:
+        return "🟣" # Violet pour Aide financière / Autre
+
+# Gestion de l'espace Administrateur avec le mot de passe exact 'amel2026'
 if mot_de_passe_saisi == CODE_ADMIN:
     st.sidebar.success("✅ Connecté en tant qu'Administrateur")
     st.markdown("---")
@@ -296,8 +320,9 @@ if mot_de_passe_saisi == CODE_ADMIN:
         st.subheader("📋 Liste des Annonces / Inscrits")
         if db["annonces"]:
             for idx, ann in enumerate(db["annonces"]):
+                pastille = obtenir_pastille_couleur(ann['transaction'])
                 dispo_info = f"Dispo: {ann.get('disponibilite', 'Immédiate')}"
-                st.write(f"**{idx+1}. [{ann['type_compte']}]** {ann['nom']} ({ann['ville_pays']}) - *{ann['transaction']} : {ann['materiel']}* | 🕒 {dispo_info} (Contact: {ann['contact']})")
+                st.write(f"**{idx+1}. [{ann['type_compte']}]** {ann['nom']} ({ann['ville_pays']}) - {pastille} *{ann['transaction']} : {ann['materiel']}* | 🕒 {dispo_info} (Contact: {ann['contact']})")
         else:
             st.write("Aucune annonce enregistrée pour le moment.")
             
@@ -341,7 +366,7 @@ type_compte = st.radio(t["choix_compte"], t["options_compte"])
 
 st.markdown("---")
 
-# Section Gestion du Matériel et Nature de la Transaction (Don, Prêt, Vente)
+# Section Gestion du Matériel élargie et Nature de la Transaction
 st.header(t["section_materiel"])
 type_transaction = st.selectbox(t["choix_transaction"], t["options_transaction"])
 type_materiel = st.selectbox(t["choix_materiel"], t["options_materiel"])
@@ -352,7 +377,7 @@ if type_materiel == t["options_materiel"][-1]:
 
 st.markdown("---")
 
-# Section Disponibilité du Matériel (Immédiate, Date précise ou Indisponible)
+# Section Disponibilité du Matériel
 st.header(t["section_disponibilite"])
 statut_dispo = st.radio(t["choix_statut_dispo"], t["options_statut_dispo"])
 
@@ -365,7 +390,7 @@ elif statut_dispo == t["options_statut_dispo"][2]:
 
 st.markdown("---")
 
-# Section Coordonnées et Message de l'utilisateur (AVEC TOUS LES CHAMPS REQUIS)
+# Section Coordonnées et Message de l'utilisateur
 st.header(t["section_coordonnees"])
 nom_utilisateur = st.text_input(t["nom"])
 ville_pays_utilisateur = st.text_input(t["ville_pays"])
@@ -391,8 +416,9 @@ else:
                 st.error("🚫 Limite maximale de publications atteinte. Votre compte a été automatiquement banni.")
             else:
                 materiel_choisi = autre_materiel if type_materiel == t["options_materiel"][-1] else type_materiel
+                pastille_active = obtenir_pastille_couleur(type_transaction)
                 
-                # Enregistrement de l'annonce avec les coordonnées complètes
+                # Enregistrement de l'annonce
                 nouvelle_annonce = {
                     "type_compte": type_compte,
                     "transaction": type_transaction,
@@ -406,8 +432,8 @@ else:
                 }
                 db["annonces"].append(nouvelle_annonce)
                 
-                # Création de la notification en direct
-                texte_notif = f"Nouvelle action de **{nom_utilisateur}** ({ville_pays_utilisateur}) - *{type_compte}* : **{type_transaction}** de *{materiel_choisi}* (Dispo: {date_disponibilite_str})."
+                # Création de la notification en direct avec la pastille de couleur
+                texte_notif = f"Nouvelle action de **{nom_utilisateur}** ({ville_pays_utilisateur}) - *{type_compte}* : {pastille_active} **{type_transaction}** de *{materiel_choisi}* (Dispo: {date_disponibilite_str})."
                 db["notifications"].append({
                     "texte": texte_notif,
                     "date": maintenant
