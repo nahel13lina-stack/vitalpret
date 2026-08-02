@@ -1,271 +1,165 @@
 import streamlit as st
-import json
-import os
-from datetime import datetime
 
+# Configuration de la page
 st.set_page_config(
-    page_title="VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
-    page_icon="🩺",
-    layout="wide"
+    page_title="VitalPrêt",
+    page_icon="🤝",
+    layout="centered"
 )
 
-DB_FILE = "donnees_vitalpret.json"
-
-def charger_donnees():
-    if os.path.exists(DB_FILE):
-        try:
-            with open(DB_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except:
-            pass
-    return {"utilisateurs": [], "annonces": [], "bannis": []}
-
-def sauvegarder_donnees(data):
-    with open(DB_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-
-db = charger_donnees()
-if "bannis" not in db:
-    db["bannis"] = []
-
-translations = {
+# Dictionnaire des traductions
+traductions = {
     "Français": {
-        "title": "🩺 VitalPrêt",
-        "subtitle": "La plateforme internationale de santé, de solidarité et de gestion de matériel médical.",
-        "desc": "Mise en relation globale : 100% gratuit pour les 3 premières annonces des particuliers. Accès payant pour les professionnels.",
-        "admin_tab": "Espace Administrateur",
-        "user_tab": "Particuliers & Entraide",
-        "pro_tab": "Professionnels, Hôpitaux & ONG",
-        "alert_config": "Configuration des alertes (WhatsApp & Email)",
-        "save_btn": "Enregistrer les préférences"
+        "titre": "VitalPrêt - Solidarité & Matériel Médical",
+        "description": "Plateforme de mise à disposition de matériel médical d'urgence et d'aide solidaire.",
+        "selection_langue": "Choisissez votre langue :",
+        "section_materiel": "Demande de Matériel Médical",
+        "choix_materiel": "Sélectionnez le type de matériel :",
+        "options_materiel": ["Concentrateur d'oxygène", "Fauteuil roulant", "Lit médicalisé", "Matériel orthopédique", "Autre matériel"],
+        "saisie_autre": "Précisez l'autre matériel recherché :",
+        "section_paiement": "Modes de Paiement & Solidarité",
+        "info_paiement": "Vous pouvez participer aux frais ou faire un don direct via les coordonnées suivantes :",
+        "ccp": "CCP : [Votre Numéro CCP ici]",
+        "rib": "Compte Bancaire (RIB) : [Votre RIB ici]",
+        "bouton_valider": "Envoyer la demande",
+        "section_installation": "📱 Installer l'application sur votre appareil",
+        "texte_installation": "Vous pouvez installer cet outil directement sur votre téléphone, tablette ou ordinateur pour l'utiliser comme une vraie application :",
+        "inst_android": "**Sur Android (Chrome) :** Appuyez sur les trois petits points en haut à droite du navigateur, puis choisissez **'Installer l'application'** ou **'Ajouter à l'écran d'accueil'**.",
+        "inst_iphone": "**Sur iPhone / iPad (Safari) :** Appuyez sur le bouton de partage (le carré avec une flèche vers le haut), puis sélectionnez **'Sur l'écran d'accueil'**.",
+        "inst_pc": "**Sur Ordinateur (Chrome / Edge) :** Cliquez sur l'icône d'installation (un petit ecran avec une flèche) située tout à droite dans la barre d'adresse du navigateur."
     },
-    "العربية": {
-        "title": "🩺 فيتال بري (VitalPrêt)",
-        "subtitle": "المنصة الدولية للصحة والتضامن وإدارة المعدات الطبية.",
-        "desc": "مجاني تماماً لأول 3 إعلانات للأفراد. وصول مدفوع للمهنيين.",
-        "admin_tab": "لوحة تحكم المشرف",
-        "user_tab": "الأفراد والتضامن",
-        "pro_tab": "المهنيون، المستشفيات والمنظمات",
-        "alert_config": "إعدادات التنبيهات (واتساب والبريد الإلكتروني)",
-        "save_btn": "حفظ التفضيلات"
+    "Anglais": {
+        "titre": "VitalPrêt - Solidarity & Medical Equipment",
+        "description": "Platform for emergency medical equipment and solidarity support.",
+        "selection_langue": "Choose your language:",
+        "section_materiel": "Medical Equipment Request",
+        "choix_materiel": "Select equipment type:",
+        "options_materiel": ["Oxygen concentrator", "Wheelchair", "Medical bed", "Orthopedic equipment", "Other equipment"],
+        "saisie_autre": "Please specify the other equipment needed:",
+        "section_paiement": "Payment Methods & Solidarity",
+        "info_paiement": "You can contribute or make a direct donation using the following details:",
+        "ccp": "CCP: [Your CCP Number here]",
+        "rib": "Bank Account (RIB): [Your Bank Details here]",
+        "bouton_valider": "Submit request",
+        "section_installation": "📱 Install the app on your device",
+        "texte_installation": "You can install this tool directly on your phone, tablet, or computer to use it like a real app:",
+        "inst_android": "**On Android (Chrome):** Tap the three dots in the top right, then select **'Install app'** or **'Add to Home screen'**.",
+        "inst_iphone": "**On iPhone / iPad (Safari):** Tap the share button (square with an upward arrow), then select **'Add to Home Screen'**.",
+        "inst_pc": "**On Computer (Chrome / Edge):** Click the install icon in the right side of the browser address bar."
     },
-    "English": {
-        "title": "🩺 VitalPrêt",
-        "subtitle": "The international health, solidarity, and medical equipment management platform.",
-        "desc": "Free for individuals up to 3 listings. Paid access for professional structures.",
-        "admin_tab": "Admin Dashboard",
-        "user_tab": "Individuals & Solidarity",
-        "pro_tab": "Professionals, Hospitals & NGOs",
-        "alert_config": "Alert Configuration (WhatsApp & Email)",
-        "save_btn": "Save Preferences"
+    "Arabe": {
+        "titre": "فيتال بري - التضامن والمعدات الطبية",
+        "description": "منصة لتوفير المعدات الطبية الطارئة والدعم التضامني.",
+        "selection_langue": "اختر لغتك:",
+        "section_materiel": "طلب معدات طبية",
+        "choix_materiel": "اختر نوع المعدات:",
+        "options_materiel": ["مكثف الأكسجين", "كرسي متحرك", "سرير طبي", "معدات تقويم العظام", "معدات أخرى"],
+        "saisie_autre": "يرجى تحديد المعدات الأخرى المطلوبة:",
+        "section_paiement": "طرق الدفع والتضامن",
+        "info_paiement": "يمكنك المساهمة أو التبرع مباشرة عبر التفاصيل التالية:",
+        "ccp": "رقم البريد الجزائري (CCP): [أدخل رقم الـ CCP هنا]",
+        "rib": "الحساب البنكي (RIB): [أدخل تفاصيل الحساب هنا]",
+        "bouton_valider": "إرسال الطلب",
+        "section_installation": "📱 تثبيت التطبيق على جهازك",
+        "texte_installation": "يمكنك تثبيت هذه الأداة مباشرة على هاتفك أو جهازك اللوحي أو حاسوبك لاستخدامها التطبيق كنظام مستقل:",
+        "inst_android": "**على أندرويد (متصفح كروم):** اضغط على النقاط الثلاث في أعلى اليسار/اليمين، ثم اختر **'تثبيت التطبيق'** أو **'إضافة إلى الشاشة الرئيسية'**.",
+        "inst_iphone": "**على آيفون / آي باد (متصفح سفاري):** اضغط على زر المشاركة (المربع الذي بداخله سهم للأعلى)، ثم اختر **'إضافة إلى الشاشة الرئيسية'**.",
+        "inst_pc": "**على الكمبيوتر:** اضغط على رمز التثبيت في شريط عنوان المتصفح."
     },
-    "Español": {
-        "title": "🩺 VitalPrêt",
-        "subtitle": "La plataforma internacional de salud, solidaridad y gestión de material médico.",
-        "desc": "Gratis para particulares en sus primeros 3 anuncios. Acceso de pago para profesionales.",
-        "admin_tab": "Espacio Administrador",
-        "user_tab": "Particulares y Ayuda Mutua",
-        "pro_tab": "Profesionales, Hospitales y ONG",
-        "alert_config": "Configuración de alertas (WhatsApp y Correo)",
-        "save_btn": "Guardar preferencias"
+    "Allemand": {
+        "titre": "VitalPrêt - Solidarität & Medizinische Ausrüstung",
+        "description": "Plattform für medizinische Notfallausrüstung und solidarische Unterstützung.",
+        "selection_langue": "Wählen Sie Ihre Sprache:",
+        "section_materiel": "Anfrage für medizinische Ausrüstung",
+        "choix_materiel": "Wählen Sie den Typ der Ausrüstung:",
+        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Sonstige Ausrüstung"],
+        "saisie_autre": "Bitte geben Sie die andere benötigte Ausrüstung an:",
+        "section_paiement": "Zahlungsmethoden & Solidarität",
+        "info_paiement": "Sie können über die folgenden Daten beitragen oder direkt spenden:",
+        "ccp": "CCP: [Ihre CCP-Nummer hier]",
+        "rib": "Bankkonto (RIB): [Ihre Bankdaten hier]",
+        "bouton_valider": "Anfrage absenden",
+        "section_installation": "📱 App auf Ihrem Gerät installieren",
+        "texte_installation": "Sie können dieses Tool direkt auf Ihrem Telefon oder Computer installieren:",
+        "inst_android": "**Auf Android (Chrome):** Tippen Sie auf die drei Punkte und wählen Sie **'App installieren'**.",
+        "inst_iphone": "**Auf iPhone (Safari):** Tippen Sie auf das Teilen-Symbol und wählen Sie **'Zum Home-Bildschirm'**.",
+        "inst_pc": "**Auf PC (Chrome / Edge):** Klicken Sie auf das Installieren-Symbol in der Adressleiste."
+    },
+    "Russe": {
+        "titre": "VitalPrêt - Солидарность и медицинское оборудование",
+        "description": "Платформа для предоставления экстренного медицинского оборудования и помощи.",
+        "selection_langue": "Выберите ваш язык:",
+        "section_materiel": "Запрос медицинского оборудования",
+        "choix_materiel": "Выберите тип оборудования:",
+        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Другое оборудование"],
+        "saisie_autre": "Уточните другое необходимое оборудование:",
+        "section_paiement": "Способы оплаты и солидарность",
+        "info_paiement": "Вы можете сделать вклад или прямой перевод по следующим реквизитам:",
+        "ccp": "CCP: [Ваш номер CCP здесь]",
+        "rib": "Банковский счет (RIB): [Ваши реквизиты здесь]",
+        "bouton_valider": "Отправить запрос",
+        "section_installation": "📱 Установить приложение на устройство",
+        "texte_installation": "Вы можете установить этот инструмент на телефон или компьютер:",
+        "inst_android": "**На Android (Chrome):** Нажмите три точки вверху и выберите **'Установить приложение'**.",
+        "inst_iphone": "**На iPhone (Safari):** Нажмите кнопку «Поделиться» и выберите **'На экран «Домой»'**.",
+        "inst_pc": "**На ПК (Chrome / Edge):** Нажмите значок установки в адресной строке браузера."
+    },
+    "Mandarin": {
+        "titre": "VitalPrêt - 守望相助与医疗设备",
+        "description": "提供紧急医疗设备和声援支持的平台。",
+        "selection_langue": "请选择您的语言：",
+        "section_materiel": "医疗设备申请",
+        "choix_materiel": "选择设备类型：",
+        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "其他设备"],
+        "saisie_autre": "请说明您需要的其他设备：",
+        "section_paiement": "支付方式与爱心捐助",
+        "info_paiement": "您可以通过以下信息进行资助或直接捐款：",
+        "ccp": "邮政账户 (CCP)：[在此处输入您的CCP]",
+        "rib": "银行账户 (RIB)：[在此处输入您的RIB]",
+        "bouton_valider": "提交申请",
+        "section_installation": "📱 在您的设备上安装应用",
+        "texte_installation": "您可以直接将此工具安装到手机或电脑上：",
+        "inst_android": "**安卓手机 (Chrome)：** 点击右上角三个点，选择 **'安装应用'** 或 **'添加到主屏幕'**。",
+        "inst_iphone": "**苹果手机 (Safari)：** 点击分享按钮（带向上箭头的方框），选择 **'添加到主屏幕'**。",
+        "inst_pc": "**电脑端 (Chrome / Edge)：** 点击浏览器地址栏右侧的安装图标。"
     }
 }
 
-# --- BARRE LATÉRALE ---
-st.sidebar.title("🌍 Langue / Language")
-selected_lang = st.sidebar.selectbox("Choisir la langue / Choose language", list(translations.keys()))
-t = translations[selected_lang]
+# Barre latérale pour le choix de la langue
+langue_choisie = st.sidebar.selectbox("Langue / Language / اللغة", list(traductions.keys()))
+t = traductions[langue_choisie]
 
-st.sidebar.markdown("---")
-st.sidebar.markdown("### 🕒 Horloge Mondiale")
-maintenant = datetime.now()
-date_str = maintenant.strftime("%d/%m/%Y")
-heure_str = maintenant.strftime("%H:%M:%S")
-st.sidebar.info(f"📅 **Date:** {date_str}\n\n⏱️ **Heure:** {heure_str}\n\n🌐 **Fuseau:** UTC / Temps Universel")
+# En-tête de l'application
+st.title(t["titre"])
+st.write(t["description"])
 
-st.sidebar.markdown("---")
-menu = st.sidebar.radio("Navigation", [t["user_tab"], t["pro_tab"], t["admin_tab"]])
+st.markdown("---")
 
-if menu == t["user_tab"]:
-    st.title(t["title"])
-    st.subheader(t["subtitle"])
-    st.write(t["desc"])
-    st.markdown("---")
-    st.success("💡 **Règle Particuliers :** C'est **100% gratuit pour vos 3 premières annonces**. Au-delà de 3 annonces, une participation est demandée pour soutenir le service et la modération.")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("### 🔍 Rechercher ou Proposer du Matériel")
-        with st.form("form_utilisateur"):
-            nom = st.text_input("Nom et Prénom")
-            adresse = st.text_input("Ville / Adresse (ex: Paris, Alger, Montréal, Maghnia, Madrid...)")
-            telephone = st.text_input("Numéro de Téléphone / WhatsApp")
-            
-            type_action = st.radio("Je souhaite :", ["Proposer du matériel", "Rechercher du matériel"])
-            
-            categorie_materiel = st.selectbox(
-                "Catégorie de matériel :", 
-                [
-                    "Concentrateur d'oxygène / Appareil respiratoire", 
-                    "Fauteuil roulant / Déambulateur", 
-                    "Lit médicalisé / Matelas anti-escarres", 
-                    "Matériel orthopédique & Attelles (genouillères, colliers cervicaux...)", 
-                    "Béquilles / Cannes / Cannes anglaises", 
-                    "Tensiomètre / Glucomètre / Matériel de mesure et soins", 
-                    "Autre matériel médical"
-                ]
-            )
-            
-            nature_offre = st.selectbox("Type de proposition :", ["🟢 Don (Gratuit)", "🔵 Prêt solidaire", "🔴 Vente"])
-            disponibilite = st.selectbox("Disponibilité :", ["✅ Disponible immédiatement", "⏳ Sur demande / Bientôt disponible", "❌ Indisponible"])
-            
-            details = st.text_area("Précisions (état, taille pour les attelles, urgence...)")
-            
-            submit_user = st.form_submit_button("Valider et enregistrer sur la plateforme")
-            
-            if submit_user:
-                if nom and telephone:
-                    # Vérifier si l'utilisateur est banni
-                    if nom.strip() in db["bannis"]:
-                        st.error("⛔ Ce compte a été banni de la plateforme pour non-respect des règles.")
-                    else:
-                        annonces_user = sum(1 for u in db["utilisateurs"] if u["nom"].strip().lower() == nom.strip().lower() and u["action"] == "Proposer du matériel")
-                        
-                        statut_tarif = "Gratuit (Standard)"
-                        if type_action == "Proposer du matériel" and annonces_user >= 3:
-                            statut_tarif = "Payant (Au-delà de 3 annonces)"
-                            st.warning("⚠️ Vous avez atteint vos 3 annonces gratuites. Cette annonce passe sur le forfait de soutien payant.")
+# Section Matériel Médical
+st.header(t["section_materiel"])
+type_materiel = st.selectbox(t["choix_materiel"], t["options_materiel"])
 
-                        nouveau_contact = {
-                            "nom": nom,
-                            "adresse": adresse,
-                            "telephone": telephone,
-                            "action": type_action,
-                            "materiel": f"{categorie_materiel} ({nature_offre})",
-                            "disponibilite": disponibilite,
-                            "details": details,
-                            "tarif": statut_tarif,
-                            "date": f"{date_str} à {heure_str}"
-                        }
-                        db["utilisateurs"].append(nouveau_contact)
-                        if type_action == "Proposer du matériel":
-                            db["annonces"].append(nouveau_contact)
-                        sauvegarder_donnees(db)
-                        st.success(f"Merci {nom} ! Votre enregistrement a bien été pris en compte ({statut_tarif}).")
-                else:
-                    st.error("Veuillez remplir au moins votre nom et votre numéro de téléphone.")
+autre_materiel = ""
+if type_materiel == t["options_materiel"][-1]:  # Si "Autre matériel" est sélectionné
+    autre_materiel = st.text_input(t["saisie_autre"])
 
-    with col2:
-        st.markdown("### 📋 Dernières annonces solidaires")
-        if db["annonces"]:
-            for ann in reversed(db["annonces"][-5:]):
-                st.info(f"**{ann['nom']}** ({ann['adresse']}) — *{ann['materiel']}*\n\n📌 **Statut:** {ann.get('disponibilite', 'N/A')} | 🏷️ *{ann.get('tarif', 'Gratuit')}*\n📞 **Tél:** {ann['telephone']}\n💬 {ann['details']}")
-        else:
-            st.write("Aucune annonce pour le moment. Soyez le premier à en publier une !")
+if st.button(t["bouton_valider"]):
+    st.success("Votre demande a bien été enregistrée. Merci pour votre démarche !")
 
-elif menu == t["pro_tab"]:
-    st.title("🏥 Espace Professionnels, Hôpitaux & ONG")
-    st.error("💼 **Espace Réservé & Payant** : Cet espace est dédié aux structures de santé, pharmacies, cliniques privées, associations et ONG. L'accès institutionnel est **payant** afin de garantir la pérennité et la sécurité de la plateforme internationale.")
-    
-    with st.form("form_pro"):
-        nom_struct = st.text_input("Nom de l'établissement / Structure / ONG")
-        type_struct = st.selectbox("Type", ["Hôpital / Clinique", "Pharmacie / Professionnel", "ONG / Association humanitaire"])
-        ville_struct = st.text_input("Ville / Pays")
-        contact_struct = st.text_input("Nom du responsable et téléphone / WhatsApp")
-        besoin_struct = st.text_area("Besoins ou proposition de partenariat")
-        
-        submit_pro = st.form_submit_button("Souscrire à l'accès Pro & Rejoindre le réseau")
-        if submit_pro:
-            if nom_struct and contact_struct:
-                if nom_struct.strip() in db["bannis"]:
-                    st.error("⛔ Cette structure a été bannie de la plateforme.")
-                else:
-                    nouveau_pro = {
-                        "nom": nom_struct,
-                        "adresse": ville_struct,
-                        "telephone": contact_struct,
-                        "action": f"Structure Pro: {type_struct}",
-                        "materiel": besoin_struct,
-                        "disponibilite": "Institutionnel",
-                        "tarif": "Payant / Pro",
-                        "details": "Partenaire officiel abonné",
-                        "date": f"{date_str} à {heure_str}"
-                    }
-                    db["utilisateurs"].append(nouveau_pro)
-                    sauvegarder_donnees(db)
-                    st.success("Structure Pro enregistrée avec succès ! Redirection vers le module de paiement sécurisé...")
-            else:
-                st.error("Veuillez remplir les champs obligatoires.")
+st.markdown("---")
 
-elif menu == t["admin_tab"]:
-    st.title("🔒 Espace Administrateur (Amel)")
-    st.write("Bienvenue dans ton centre de pilotage global.")
-    
-    admin_password = st.text_input("Mot de passe administrateur", type="password")
-    
-    if admin_password == "Amel2026":
-        st.success("Accès autorisé. Voici tes statistiques en temps réel :")
-        
-        total_inscrits = len(db["utilisateurs"])
-        total_annonces = len(db["annonces"])
-        structures_pro = sum(1 for u in db["utilisateurs"] if "Structure Pro" in u["action"])
-        total_bannis = len(db["bannis"])
-        
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Total Inscrits", total_inscrits)
-        c2.metric("Structures Pro", structures_pro)
-        c3.metric("Annonces Actives", total_annonces)
-        c4.metric("Utilisateurs Bannis", total_bannis)
-        
-        st.markdown("---")
-        st.subheader("⚠️ Gestion des signalements et des bannissements")
-        
-        # Formulaire pour bannir un utilisateur par son nom
-        with st.form("bannir_form"):
-            nom_a_bannir = st.text_input("Nom exact de l'utilisateur ou de la structure à bannir")
-            btn_bannir = st.form_submit_button("🚫 Bannir cet utilisateur")
-            if btn_bannir:
-                if nom_a_bannir:
-                    clean_name = nom_a_bannir.strip()
-                    if clean_name not in db["bannis"]:
-                        db["bannis"].append(clean_name)
-                        sauvegarder_donnees(db)
-                        st.success(f"L'utilisateur '{clean_name}' a été banni avec succès.")
-                    else:
-                        st.warning("Cet utilisateur est déjà sur la liste des bannis.")
-                else:
-                    st.error("Veuillez entrer un nom.")
+# Section Paiement / Coordonnées Bancaires et CCP
+st.header(t["section_paiement"])
+st.write(t["info_paiement"])
+st.info(f"🔹 **{t['ccp']}**\n\n🔹 **{t['rib']}**")
 
-        # Formulaire pour débannir si besoin
-        if db["bannis"]:
-            with st.form("debannir_form"):
-                nom_a_debannir = st.selectbox("Utilisateurs actuellement bannis :", db["bannis"])
-                btn_debannir = st.form_submit_button("✅ Lever le bannissement")
-                if btn_debannir:
-                    db["bannis"].remove(nom_a_debannir)
-                    sauvegarder_donnees(db)
-                    st.success(f"Le bannissement de '{nom_a_debannir}' a été levé.")
-                    st.rerun()
+st.markdown("---")
 
-        st.markdown("---")
-        st.subheader("👥 Liste de tous les utilisateurs, inscrits et statuts tarifaires")
-        if db["utilisateurs"]:
-            for idx, u in enumerate(reversed(db["utilisateurs"]), 1):
-                st.write(f"**{idx}. {u['nom']}** — 📍 *{u['adresse']}* — 📞 **{u['telephone']}**")
-                st.write(f"   ↳ *Action:* {u['action']} | *Matériel:* {u['materiel']} | *Tarif:* 🏷️ **{u.get('tarif', 'N/A')}** | *Date:* {u.get('date', 'N/A')}")
-                st.write(f"   ↳ *Détails:* {u['details']}")
-                st.markdown("---")
-        else:
-            st.write("Aucun utilisateur inscrit pour le moment.")
-            
-        st.subheader(f"⚙️ {t['alert_config']}")
-        with st.form("alert_form"):
-            whatsapp_number = st.text_input("Ton numéro WhatsApp", value="+213 559 90 12 73")
-            admin_email = st.text_input("Ton adresse e-mail de réception", value="nahel13.lina@gmail.com")
-            submitted = st.form_submit_button(t["save_btn"])
-            if submitted:
-                st.success("Tes préférences sont enregistrées !")
-    elif admin_password:
-        st.error("Mot de passe incorrect.")
-
+# Section Instructions d'installation
+st.header(t["section_installation"])
+st.write(t["texte_installation"])
+st.markdown(f"""
+- {t['inst_android']}
+- {t['inst_iphone']}
+- {t['inst_pc']}
+""")
