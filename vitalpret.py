@@ -26,7 +26,6 @@ def sauvegarder_donnees(data):
 
 db = chargeur_donnees()
 
-# Dictionnaire des traductions
 traductions = {
     "Français": {
         "titre_principal": "VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
@@ -132,21 +131,17 @@ traductions = {
     }
 }
 
-# Barre latérale pour la sélection de la langue
 langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / اللغة", list(traductions.keys()))
 t = traductions[langue_choisie]
 
-# En-tête de l'application
 st.title(t["titre_principal"])
 st.write(t["sous_titre"])
 
-# Affichage de l'heure et date actuelles
 maintenant = datetime.now().strftime("%d/%m/%Y à %H:%M")
 st.sidebar.markdown(f"📅 **Date & Heure :** {maintenant}")
 
 st.markdown("---")
 
-# Section Gestion du Matériel Médical avec champ libre
 st.header(t["section_materiel"])
 type_materiel = st.selectbox(t["choix_materiel"], t["options_materiel"])
 
@@ -159,14 +154,12 @@ if st.button("Valider ma démarche"):
 
 st.markdown("---")
 
-# Section Paiement / CCP et RIB
 st.header(t["section_paiement"])
 st.write(t["info_paiement"])
 st.info(f"🔹 **{t['ccp']}**\n\n🔹 **{t['rib']}**")
 
 st.markdown("---")
 
-# Section Guide d'Installation de l'application
 st.header(t["section_installation"])
 st.write(t["texte_installation"])
 st.markdown(f"""
