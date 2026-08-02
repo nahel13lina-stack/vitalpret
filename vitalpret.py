@@ -1,11 +1,30 @@
 import streamlit as st
+import json
+import os
 from datetime import datetime
 
 st.set_page_config(
-    page_title="VitalPrêt - Solidarité",
+    page_title="VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
     page_icon="🤝",
-    layout="large"
+    layout="wide"
 )
+
+FICHIER_DB = "donnees_vitalpret.json"
+
+def chargeur_donnees():
+    if os.path.exists(FICHIER_DB):
+        try:
+            with open(FICHIER_DB, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            pass
+    return {"utilisateurs": [], "annonces": [], "bannis": []}
+
+def sauvegarder_donnees(data):
+    with open(FICHIER_DB, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+db = chargeur_donnees()
 
 # Dictionnaire des traductions
 traductions = {
