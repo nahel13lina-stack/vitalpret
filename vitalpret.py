@@ -26,7 +26,7 @@ def sauvegarder_donnees(data):
 
 db = chargeur_donnees()
 
-# Dictionnaire des traductions (incluant les nouvelles langues)
+# Dictionnaire des traductions
 traductions = {
     "Français": {
         "titre_principal": "VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
@@ -59,7 +59,7 @@ traductions = {
         "section_installation": "📱 Install the app on your device",
         "texte_installation": "You can install this tool directly on your phone, tablet, or computer:",
         "inst_android": "**On Android (Chrome):** Tap the three dots, then select **'Install app'**.",
-        "inst_iphone": **"On iPhone / iPad (Safari):** Tap the share button, then select **'Add to Home Screen'**.",
+        "inst_iphone": "**On iPhone / iPad (Safari):** Tap the share button, then select **'Add to Home Screen'**.",
         "inst_pc": "**On Computer:** Click the install icon in the address bar."
     },
     "Arabe": {
@@ -140,7 +140,7 @@ t = traductions[langue_choisie]
 st.title(t["titre_principal"])
 st.write(t["sous_titre"])
 
-# Affichage de l'heure et date actuelles (fuseau horaire local)
+# Affichage de l'heure et date actuelles
 maintenant = datetime.now().strftime("%d/%m/%Y à %H:%M")
 st.sidebar.markdown(f"📅 **Date & Heure :** {maintenant}")
 
