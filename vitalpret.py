@@ -423,17 +423,18 @@ ville_pays_utilisateur = st.text_input(t["ville_pays"])
 contact_utilisateur = st.text_input(t["contact"])
 message_utilisateur = st.text_area(t["message"])
 # Section Conditions de publication & Soutien
+# Section Conditions de publication & Soutien
 st.markdown("---")
-st.warning("⚠️ **Rappel important :** \n\n* **Pour les Particuliers :** Vos 3 premières publications sont gratuites. Au-delà de 3 publications, le service devient payant.\n* **Pour les Professionnels :** L'accès et les publications sont payants.")
+st.warning("⚠️ **Rappel important :** \n\n* **Pour les Particuliers :** Vos 3 premières publications sont gratuites. Au-delà, c'est à 500 DA (env. 2 €) la publication.\n* **Pour les Professionnels :** L'accès est à 15 € (env. 3 750 DA).")
 
 col_soutien1, col_soutien2 = st.columns(2)
 with col_soutien1:
     if st.button("📌 En savoir plus / Tarifs"):
-        st.info("Contactez l'administrateur pour les abonnements professionnels ou le dépassement de quota.")
+        st.info("Tarifs : 500 DA / ~2 € par publication supplémentaire (particulier) ou 15 € / ~3 750 DA (professionnel). Contactez l'administrateur pour régler.")
 with col_soutien2:
     if st.button("☕ Offrir un café / Soutenir l'outil"):
-        st.success("Barakallahu feek ! Merci de donner un coup de pouce pour maintenir la plateforme active et solidaire 💖")
-       
+        st.success("Merci de donner un coup de pouce pour maintenir la plateforme active et solidaire.")
+    
 # Vérification du bannissement
 if contact_utilisateur in db["bannis"]:
     st.error("🚫 Ce compte a été banni par l'administration en raison d'un non-respect des règles de la plateforme.")
