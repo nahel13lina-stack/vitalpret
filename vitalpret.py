@@ -137,7 +137,7 @@ traductions = {
         "section_compte": "Account Type",
         "choix_compte": "Select your profile",
         "section_materiel": "Medical Equipment Management & Transaction Type",
-        "choix_transaction",: "Select the nature of the offer / request",
+        "choix_transaction": "Select the nature of the offer / request",
     },
     "Arabe": {
         "titre_principal": "فيتال بري - المنصة الدولية للصحة والتضامن",
