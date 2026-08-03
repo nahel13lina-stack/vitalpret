@@ -562,6 +562,4 @@ st.subheader("🌐 Partager VitalPrêt")
 st.write("Aidez-nous à faire connaître la plateforme :")
 
 url_vitalpret = "https://vitalpret.streamlit.app"
-st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60)
-st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60)
-
+st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60, key="champ_partage_unique_vitalpret")
