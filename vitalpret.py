@@ -329,9 +329,6 @@ traductions = {
         "section_materiel": "医疗设备管理与交易类型",
         "choix_transaction": "选择供求性质",
     }
-}
-    }
-}
 
 # Barre latérale pour la sélection de la langue et l'accès Administrateur
 langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / Idioma / اللغة", list(traductions.keys()))
