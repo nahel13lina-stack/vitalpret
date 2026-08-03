@@ -133,7 +133,7 @@ traductions = {
         "texte_installation": "You can install this tool directly on your phone, tablet, or computer:",
         "inst_android": "On Android (Chrome): Tap the three dots, then select 'Install app'.",
         "inst_iphone": "On iPhone / iPad (Safari): Tap the share button, then select 'Add to Home Screen'.",
-        "inst_pc": "On Computer: Click the install icon in the address bar."
+        "inst_pc": "On Computer: Click the install icon in the address bar.",
         "section_compte": "Account Type",
         "choix_compte": "Select your profile",
         "section_materiel": "Medical Equipment Management & Transaction Type",
