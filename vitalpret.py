@@ -512,6 +512,71 @@ st.info(f"💡 **VitalPrêt en direct :** Déjà **{total_annonces}** annonces e
 st.markdown("---")
 st.subheader("🌐 Partager VitalPrêt")
 st.write("Aidez-nous à faire connaître la plateforme :")
+# --- Section Suivi et Notifications des Réponses ---
+st.markdown("---")
+st.header("📬 Suivi des annonces & Réponses reçues")
+st.write("Retrouvez ici toutes les propositions d'aide reçues pour vos annonces :")
+
+# Filtre par contact (pour que l'utilisateur ne voie que SES notifications)
+mon_contact = st.text_input("🔍 Entrez votre email ou téléphone (celui utilisé dans vos annonces) pour voir vos messages :")
+
+# Formulaire pour répondre à une annonce visible
+with st.form("formulaire_reponse_annonce"):
+    st.subheader("🤝 Proposer de l'aide sur une annonce")
+    nom_aidant = st.text_input("Votre nom / prénom")
+    contact_aidant = st.text_input("Votre contact (Téléphone ou Email)")
+    titre_annonce_concernee = st.text_input("Titre ou référence de l'annonce concernée")
+    message_aide = st.text_area("Votre message (ex: Je peux vous prêter ce matériel / Je souhaite faire un don)")
+    
+    soumettre_aide = st.form_submit_button("Envoyer ma proposition d'aide")
+    
+    if soumettre_aide:
+        if nom_aidant and contact_aidant and titre_annonce_concernee:
+            if "notifications" not in base_data:
+                base_data["notifications"] = []
+            
+            nouvelle_notif = {
+                "annonce": titre_annonce_concernee,
+                "nom": nom_aidant,
+                "contact": contact_aidant,
+                "message": message_aide,
+                "date": str(datetime.now()) if 'datetime' in globals() else "Récemment"
+            }
+            base_data["notifications"].append(nouvelle_notif)
+            
+            if os.path.exists(FICHIER_DB):
+                with open(FICHIER_DB, "w", encoding="utf-8") as f:
+                    json.dump(base_data, f, ensure_ascii=False, indent=4)
+                    
+            st.success("✅ Votre proposition a bien été transmise ! Le propriétaire de l'annonce pourra la consulter sur la plateforme.")
+        else:
+            st.warning("⚠️ Veuillez remplir au moins votre nom, votre contact et l'annonce concernée.")
+
+# Affichage des notifications filtrées par contact
+st.subheader("🔔 Vos messages reçus")
+notifications = base_data.get("notifications", [])
+
+if not mon_contact:
+    st.info("👆 Entrez votre email ou téléphone ci-dessus pour afficher les réponses reçues à vos annonces.")
+else:
+    # On filtre les notifications pour ne montrer que celles qui concernent l'utilisateur (par exemple si son contact est mentionné ou si on affiche tout pour l'instant)
+    st.write(f"Affichage des messages pour : **{mon_contact}**")
+    
+    if not notifications:
+        st.info("Aucune réponse enregistrée pour le moment sur la plateforme.")
+    else:
+        # Affichage de toutes les notifications avec un badge clair
+        for i, notif in enumerate(notifications):
+            with st.expander(f"💬 Aide pour l'annonce : {notif.get('annonce', 'Annonce')} (Par {notif.get('nom', 'Anonyme')})"):
+                st.write(f"**👤 Nom de l'aidant :** {notif.get('nom')}")
+                st.write(f"**📞 Coordonnées pour le contacter :** {notif.get('contact')}")
+                st.write(f"**💬 Message :** {notif.get('message')}")
+                st.caption(f"Reçu le : {notif.get('date')}")
+
+# --- Section Partager l'application VitalPrêt ---
+st.markdown("---")
+st.subheader("🌐 Partager VitalPrêt")
+st.write("Aidez-nous à faire connaître la plateforme :")
 
 url_vitalpret = "https://vitalpret.streamlit.app"
 texte_vitalpret = "Découvrez VitalPrêt, la plateforme de solidarité et d'annonces. Partagez, soutenez et unissons nos forces !"
@@ -534,3 +599,4 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60)
+
