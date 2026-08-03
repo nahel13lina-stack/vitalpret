@@ -558,7 +558,33 @@ with st.form("formulaire_reponse_annonce"):
 # --- Section Partager l'application VitalPrêt ---
 st.markdown("---")
 st.subheader("🌐 Partager VitalPrêt")
+# --- Section Partager l'application VitalPrêt ---
+st.markdown("---")
+st.subheader("🌐 Partager VitalPrêt")
 st.write("Aidez-nous à faire connaître la plateforme :")
 
 url_vitalpret = "https://vitalpret.streamlit.app"
 st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60, key="champ_partage_unique_vitalpret")
+
+# Boutons de partage direct sur les réseaux
+import urllib.parse
+texte_vitalpret = "Découvrez VitalPrêt, la plateforme de solidarité et d'annonces. Partagez, soutenez et unissons nos forces !"
+
+encoded_text = urllib.parse.quote(f"{texte_vitalpret} {url_vitalpret}")
+encoded_url = urllib.parse.quote(url_vitalpret)
+
+fb_url = f"https://www.facebook.com/sharer/sharer.php?u={encoded_url}"
+twitter_url = f"https://twitter.com/intent/tweet?text={encoded_text}"
+whatsapp_url = f"https://api.whatsapp.com/send?text={encoded_text}"
+telegram_url = f"https://t.me/share/url?url={encoded_url}&text={encoded_text}"
+instagram_url = "https://www.instagram.com"
+
+st.markdown(f"""
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+    <a href="{fb_url}" target="_blank"><button style="background-color:#1877F2; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Facebook</button></a>
+    <a href="{whatsapp_url}" target="_blank"><button style="background-color:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">WhatsApp</button></a>
+    <a href="{telegram_url}" target="_blank"><button style="background-color:#229ED9; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Telegram</button></a>
+    <a href="{twitter_url}" target="_blank"><button style="background-color:#000000; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">X / Twitter</button></a>
+    <a href="{instagram_url}" target="_blank"><button style="background-color:#E4405F; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Instagram</button></a>
+</div>
+""", unsafe_allow_html=True)
