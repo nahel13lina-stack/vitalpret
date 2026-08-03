@@ -79,7 +79,7 @@ traductions = {
             "Pousse-seringue / Matériel perfusion",
             "Matelas anti-escarres",
             "Autre matériel"
-        ],
+         ],
         "saisie_autre": "Précisez l'autre matériel recherché ou proposé :",
         "section_disponibilite": "📅 Disponibilité du Matériel",
         "choix_statut_dispo": "État de disponibilité :",
@@ -328,6 +328,8 @@ traductions = {
         "choix_compte": "搜索您的个人资料",
         "section_materiel": "医疗设备管理与交易类型",
         "choix_transaction": "选择供求性质",
+    }
+}
     }
 }
 
