@@ -504,20 +504,12 @@ st.markdown(f"""
 - {t['inst_iphone']}
 - {t['inst_pc']}
 """)
-# --- Petit plus : Compteur d'activité en direct ---
-total_annonces = len(base_data.get("annonces", []))
-st.info(f"💡 **VitalPrêt en direct :** Déjà **{total_annonces}** annonces et actions de solidarité partagées par la communauté !")
-
-# Section Partager l'application VitalPrêt
-st.markdown("---")
-st.subheader("🌐 Partager VitalPrêt")
-st.write("Aidez-nous à faire connaître la plateforme :")
 # --- Section Suivi et Notifications des Réponses ---
 st.markdown("---")
 st.header("📬 Suivi des annonces & Réponses reçues")
 st.write("Retrouvez ici toutes les propositions d'aide reçues pour vos annonces :")
 
-# Filtre par contact (pour que l'utilisateur ne voie que SES notifications)
+# Filtre par contact
 mon_contact = st.text_input("🔍 Entrez votre email ou téléphone (celui utilisé dans vos annonces) pour voir vos messages :")
 
 # Formulaire pour répondre à une annonce visible
@@ -532,46 +524,37 @@ with st.form("formulaire_reponse_annonce"):
     
     if soumettre_aide:
         if nom_aidant and contact_aidant and titre_annonce_concernee:
-            if "notifications" not in base_data:
-                base_data["notifications"] = []
+            if "notifications" not in st.session_state:
+                st.session_state["notifications"] = []
             
             nouvelle_notif = {
                 "annonce": titre_annonce_concernee,
                 "nom": nom_aidant,
                 "contact": contact_aidant,
                 "message": message_aide,
-                "date": str(datetime.now()) if 'datetime' in globals() else "Récemment"
+                "date": "Récemment"
             }
-            base_data["notifications"].append(nouvelle_notif)
-            
-            if os.path.exists(FICHIER_DB):
-                with open(FICHIER_DB, "w", encoding="utf-8") as f:
-                    json.dump(base_data, f, ensure_ascii=False, indent=4)
-                    
-            st.success("✅ Votre proposition a bien été transmise ! Le propriétaire de l'annonce pourra la consulter sur la plateforme.")
+            st.session_state["notifications"].append(nouvelle_notif)
+            st.success("✅ Votre proposition a bien été transmise !")
         else:
             st.warning("⚠️ Veuillez remplir au moins votre nom, votre contact et l'annonce concernée.")
 
-# Affichage des notifications filtrées par contact
+# Affichage des notifications
 st.subheader("🔔 Vos messages reçus")
-notifications = base_data.get("notifications", [])
+notifications = st.session_state.get("notifications", [])
 
 if not mon_contact:
     st.info("👆 Entrez votre email ou téléphone ci-dessus pour afficher les réponses reçues à vos annonces.")
 else:
-    # On filtre les notifications pour ne montrer que celles qui concernent l'utilisateur (par exemple si son contact est mentionné ou si on affiche tout pour l'instant)
     st.write(f"Affichage des messages pour : **{mon_contact}**")
-    
     if not notifications:
-        st.info("Aucune réponse enregistrée pour le moment sur la plateforme.")
+        st.info("Aucune réponse enregistrée pour le moment.")
     else:
-        # Affichage de toutes les notifications avec un badge clair
-        for i, notif in enumerate(notifications):
-            with st.expander(f"💬 Aide pour l'annonce : {notif.get('annonce', 'Annonce')} (Par {notif.get('nom', 'Anonyme')})"):
-                st.write(f"**👤 Nom de l'aidant :** {notif.get('nom')}")
-                st.write(f"**📞 Coordonnées pour le contacter :** {notif.get('contact')}")
+        for notif in notifications:
+            with st.expander(f"💬 Aide pour l'annonce : {notif.get('annonce')} (Par {notif.get('nom')})"):
+                st.write(f"**👤 Nom :** {notif.get('nom')}")
+                st.write(f"**📞 Contact :** {notif.get('contact')}")
                 st.write(f"**💬 Message :** {notif.get('message')}")
-                st.caption(f"Reçu le : {notif.get('date')}")
 
 # --- Section Partager l'application VitalPrêt ---
 st.markdown("---")
@@ -579,24 +562,6 @@ st.subheader("🌐 Partager VitalPrêt")
 st.write("Aidez-nous à faire connaître la plateforme :")
 
 url_vitalpret = "https://vitalpret.streamlit.app"
-texte_vitalpret = "Découvrez VitalPrêt, la plateforme de solidarité et d'annonces. Partagez, soutenez et unissons nos forces !"
-
-encoded_text = urllib.parse.quote(f"{texte_vitalpret} {url_vitalpret}")
-encoded_url = urllib.parse.quote(url_vitalpret)
-
-fb_url = f"https://www.facebook.com/sharer/sharer.php?u={encoded_url}"
-twitter_url = f"https://twitter.com/intent/tweet?text={encoded_text}"
-whatsapp_url = f"https://api.whatsapp.com/send?text={encoded_text}"
-telegram_url = f"https://t.me/share/url?url={encoded_url}&text={encoded_text}"
-
-st.markdown(f"""
-<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
-    <a href="{fb_url}" target="_blank"><button style="background-color:#1877F2; color:white; border:none; padding:6px 12px; border-radius:5px; font-weight:bold; cursor:pointer; font-size:12px;">📘 Facebook</button></a>
-    <a href="{whatsapp_url}" target="_blank"><button style="background-color:#25D366; color:white; border:none; padding:6px 12px; border-radius:5px; font-weight:bold; cursor:pointer; font-size:12px;">📱 WhatsApp</button></a>
-    <a href="{twitter_url}" target="_blank"><button style="background-color:#000000; color:white; border:none; padding:6px 12px; border-radius:5px; font-weight:bold; cursor:pointer; font-size:12px;">✖️ X</button></a>
-    <a href="{telegram_url}" target="_blank"><button style="background-color:#229ED9; color:white; border:none; padding:6px 12px; border-radius:5px; font-weight:bold; cursor:pointer; font-size:12px;">✈️ Telegram</button></a>
-</div>
-""", unsafe_allow_html=True)
-
+st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60)
 st.text_area("📋 Lien à copier :", value=url_vitalpret, height=60)
 
