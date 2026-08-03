@@ -291,7 +291,7 @@ traductions = {
         "section_materiel": "Управление медицинским оборудованием и тип транзакции",
         "choix_transaction": "Выберите тип предложения / запроса",
     },
-    "Mandarin": {
+    "Mandarin": }
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
         "sous_titre": "紧急医疗设备共享、借用、租赁或出售的互助网络。",
         "section_notif": "🔔 实时通知中心",
