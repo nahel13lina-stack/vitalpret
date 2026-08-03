@@ -110,7 +110,7 @@ traductions = {
         "choix_compte": "Select your profile:",
         "options_compte": ["Individual", "Professional / Association / Pharmacy / NGO"],
         "section_materiel": "Medical Equipment Management & Transaction Type",
-        "choix_transaction": "Select the nature of the offer / request:",
+        "choix_transaction": "Select the nature of the offer / request",
         "options_transaction": ["Donation", "Loan", "Sale", "Financial aid / Direct donation"],
         "choix_materiel": "Select equipment type:",
         "options_materiel": ["Oxygen concentrator", "Wheelchair", "Medical bed", "Orthopedic equipment", "Splints / Braces", "Oxygen tank", "Walker / Crutches", "Blood pressure monitor", "Other equipment"],
