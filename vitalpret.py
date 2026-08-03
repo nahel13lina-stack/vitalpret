@@ -504,7 +504,9 @@ st.markdown(f"""
 - {t['inst_iphone']}
 - {t['inst_pc']}
 """)
-import urllib.parse
+# --- Petit plus : Compteur d'activité en direct ---
+total_annonces = len(base_data.get("annonces", []))
+st.info(f"💡 **VitalPrêt en direct :** Déjà **{total_annonces}** annonces et actions de solidarité partagées par la communauté !")
 
 # Section Partager l'application VitalPrêt
 st.markdown("---")
