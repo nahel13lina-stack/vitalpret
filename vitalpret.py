@@ -509,10 +509,26 @@ st.markdown("---")
 st.header("📬 Suivi des annonces & Réponses reçues")
 st.write("Retrouvez ici toutes les propositions d'aide reçues pour vos annonces :")
 
-# Filtre par contact
-mon_contact = st.text_input("🔍 Entrez votre email ou téléphone (celui utilisé dans vos annonces) pour voir vos messages :")
+# 1. Le champ de recherche en premier pour voir ses messages
+mon_contact = st.text_input("🔍 Entrez votre email ou téléphone (celui utilisé dans vos annonces) pour voir vos messages :", key="champ_recherche_contact_unique")
 
-# Formulaire pour répondre à une annonce visible
+# Affichage des messages reçus
+notifications = st.session_state.get("notifications", [])
+
+if not mon_contact:
+    st.info("👆 Entrez votre email ou téléphone dans le champ ci-dessus pour afficher les réponses reçues à vos annonces.")
+else:
+    st.write(f"Affichage des messages pour : **{mon_contact}**")
+    if not notifications:
+        st.info("Aucune réponse enregistrée pour le moment.")
+    else:
+        for notif in notifications:
+            with st.expander(f"💬 Aide pour l'annonce : {notif.get('annonce')} (Par {notif.get('nom')})"):
+                st.write(f"**👤 Nom :** {notif.get('nom')}")
+                st.write(f"**📞 Contact :** {notif.get('contact')}")
+                st.write(f"**💬 Message :** {notif.get('message')}")
+
+# 2. Ensuite, le formulaire pour proposer de l'aide si besoin
 with st.form("formulaire_reponse_annonce"):
     st.subheader("🤝 Proposer de l'aide sur une annonce")
     nom_aidant = st.text_input("Votre nom / prénom")
@@ -538,23 +554,6 @@ with st.form("formulaire_reponse_annonce"):
             st.success("✅ Votre proposition a bien été transmise !")
         else:
             st.warning("⚠️ Veuillez remplir au moins votre nom, votre contact et l'annonce concernée.")
-
-# Affichage des notifications
-st.subheader("🔔 Vos messages reçus")
-notifications = st.session_state.get("notifications", [])
-
-if not mon_contact:
-    st.info("👆 Entrez votre email ou téléphone ci-dessus pour afficher les réponses reçues à vos annonces.")
-else:
-    st.write(f"Affichage des messages pour : **{mon_contact}**")
-    if not notifications:
-        st.info("Aucune réponse enregistrée pour le moment.")
-    else:
-        for notif in notifications:
-            with st.expander(f"💬 Aide pour l'annonce : {notif.get('annonce')} (Par {notif.get('nom')})"):
-                st.write(f"**👤 Nom :** {notif.get('nom')}")
-                st.write(f"**📞 Contact :** {notif.get('contact')}")
-                st.write(f"**💬 Message :** {notif.get('message')}")
 
 # --- Section Partager l'application VitalPrêt ---
 st.markdown("---")
