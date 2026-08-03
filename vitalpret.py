@@ -99,9 +99,9 @@ traductions = {
         "texte_installation": "Vous pouvez installer cet outil directement sur votre téléphone, tablette ou ordinateur :",
         "inst_android": "Sur Android (Chrome) : Appuyez sur les trois points, puis choisissez 'Installer l'application'.",
         "inst_iphone": "Sur iPhone / iPad (Safari) : Appuyez sur le bouton de partage, puis sélectionnez 'Sur l'écran d'accueil'.",
-        "inst_pc":", "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse."
+        "inst_pc":" "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse.",
     },
-    "Anglais": {
+    "Anglais": {,
         "titre_principal": "VitalPrêt - International Health & Solidarity Platform",
         "sous_titre": "Solidarity networking for emergency medical equipment, sharing, loan or sale.",
         "section_notif": "🔔 Live Notification Center",
