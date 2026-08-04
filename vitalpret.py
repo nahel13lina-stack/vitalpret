@@ -101,7 +101,7 @@ traductions = {
         "inst_iphone": "Sur iPhone / iPad (Safari) : Appuyez sur le bouton de partage, puis sélectionnez 'Sur l'écran d'accueil'.",
         "inst_pc": "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse."
     },
-    "Anglais": {
+"Anglais": {
         "titre_principal": "VitalPrêt - International Health & Solidarity Platform",
         "sous_titre": "Solidarity networking for emergency medical equipment, sharing, loan or sale.",
         "section_notif": "🔔 Live Notification Center",
@@ -147,7 +147,17 @@ traductions = {
         "choix_transaction": "اختر طبيعة العرض / الطلب:",
         "options_transaction": ["تبرع", "إعارة", "بيع", "مساعدة مالية / تبرع مباشر"],
         "choix_materiel": "اختر نوع المعدات:",
-        "options_materiel": ["مكثف الأكسجين", "كرسي متحرك", "سرير طبي", "معدات تقويم العظام", "جبائر / attelles", "قارورة أكسجين", "مشاية / عكاكيز", "جهاز قياس الضغط", "معدات أخرى"],
+        "options_materiel": [
+            "مكثف الأكسجين", 
+            "كرسي متحرك", 
+            "سرير طبي", 
+            "معدات تقويم العظام", 
+            "جبائر", 
+            "قارورة أكسجين", 
+            "مشاية", 
+            "جهاز قياس الضغط", 
+            "معدات أخرى"
+        ],
         "saisie_autre": "يرجى تحديد المعدات الأخرى المطلوبة أو المعروضة:",
         "section_disponibilite": "📅 توفر المعدات",
         "choix_statut_dispo": "حالة التوفر:",
@@ -181,7 +191,7 @@ traductions = {
         "choix_transaction": "Seleccione la naturaleza de la oferta / solicitud:",
         "options_transaction": ["Donación", "Préstamo", "Venta", "Ayuda financiera / Donación directa"],
         "choix_materiel": "Seleccione el tipo de material:",
-        "options_materiel": ["Concentrador de oxígeno", "Silla de ruedas", "Cama médica", "Material ortopédico", "Férulas / Attelles", "Bombona de oxígeno", "Andador / Muletas", "Otro material"],
+        "options_materiel": ["Concentrador de oxígeno", "Silla de ruedas", "Cama médica", "Material ortopédico", "Férulas", "Bombona de oxígeno", "Andador / Muletas", "Otro material"],
         "saisie_autre": "Especifique el otro material necesario u ofrecido:",
         "section_disponibilite": "📅 Disponibilidad del Material",
         "choix_statut_dispo": "Estado de disponibilidad:",
@@ -203,7 +213,7 @@ traductions = {
         "inst_iphone": "En iPhone / iPad (Safari): Toque el botón compartir y seleccione 'Añadir a la pantalla de inicio'.",
         "inst_pc": "En Computadora: Haga clic en el icono de instalación en la barra de direcciones."
     },
-    "Allemand": {
+   "Allemand": {
         "titre_principal": "VitalPrêt - Internationale Gesundheits- und Solidaritätsplattform",
         "sous_titre": "Solidarische Vernetzung für medizinische Notfallausrüstung, Verleih oder Verkauf.",
         "section_notif": "🔔 Live-Benachrichtigungscenter",
@@ -215,7 +225,7 @@ traductions = {
         "choix_transaction": "Wählen Sie die Art der Aktion:",
         "options_transaction": ["Spende", "Verleih", "Verkauf", "Finanzielle Hilfe / Direkte Spende"],
         "choix_materiel": "Wählen Sie den Typ der Ausrüstung:",
-        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Schienen / Attelles", "Sauerstoffflasche", "Gehwagen / Krücken", "Sonstige Ausrüstung"],
+        "options_materiel": ["Sauerstoffkonzentrator", "Rollstuhl", "Pflegebett", "Orthopädische Ausrüstung", "Schienen", "Sauerstoffflasche", "Gehwagen / Krücken", "Sonstige Ausrüstung"],
         "saisie_autre": "Bitte geben Sie die andere benötigte oder angebotene Ausrüstung an:",
         "section_disponibilite": "📅 Verfügbarkeit der Ausrüstung",
         "choix_statut_dispo": "Verfügbarkeitsstatus:",
@@ -237,7 +247,7 @@ traductions = {
         "inst_iphone": "Auf iPhone: Tippen Sie auf das Teilen-Symbol und wählen Sie 'Zum Home-Bildschirm'.",
         "inst_pc": "Auf PC: Klicken Sie auf das Installieren-Symbol in der Adressleiste."
     },
-    "Russe": {
+   "Russe": {
         "titre_principal": "VitalPrêt - Международная платформа здоровья и солидарности",
         "sous_titre": "Связь для экстренного медицинского оборудования, аренды или продажи.",
         "section_notif": "🔔 Центр живых уведомлений",
@@ -249,7 +259,7 @@ traductions = {
         "choix_transaction": "Выберите тип действия:",
         "options_transaction": ["Пожертвование", "Аренда", "Продажа", "Финансовая помощь / Прямое пожертвование"],
         "choix_materiel": "Выберите тип оборудования:",
-        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Шины / Attelles", "Кислородный баллон", "Ходунки / Костыли", "Другое оборудование"],
+        "options_materiel": ["Кислородный концентратор", "Инвалидная коляска", "Медицинская кровать", "Ортопедическое оборудование", "Шины", "Кислородный баллон", "Ходунки / Костыли", "Другое оборудование"],
         "saisie_autre": "Уточните другое необходимое или предлагаемое оборудование:",
         "section_disponibilite": "📅 Доступность оборудования",
         "choix_statut_dispo": "Статус доступности:",
@@ -271,7 +281,7 @@ traductions = {
         "inst_iphone": "На iPhone: Нажмите «Поделиться» и выберите 'На экран «Домой»'.",
         "inst_pc": "На ПК: Нажмите значок установки в адресной строке."
     },
-    "Mandarin": {
+   "Mandarin": {
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
         "sous_titre": "紧急医疗设备共享、借用、租赁或出售的互助网络。",
         "section_notif": "🔔 实时通知中心",
@@ -283,7 +293,7 @@ traductions = {
         "choix_transaction": "选择操作性质：",
         "options_transaction": ["捐赠", "借用", "出售", "经济援助 / 直接捐款"],
         "choix_materiel": "选择设备类型：",
-        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "支具 / Attelles", "氧气瓶", "助行器 / 拐杖", "其他设备"],
+        "options_materiel": ["制氧机", "轮椅", "医用病床", "骨科器材", "支具", "氧气瓶", "助行器 / 拐杖", "其他设备"],
         "saisie_autre": "请说明您需要或提供的其他设备：",
         "section_disponibilite": "📅 设备可用性",
         "choix_statut_dispo": "可用状态：",
@@ -305,7 +315,6 @@ traductions = {
         "inst_iphone": "苹果手机：点击分享按钮，选择 '添加到主屏幕'。",
         "inst_pc": "电脑端：点击浏览器地址栏右侧的安装图标。"
     }
-
 # Barre latérale pour la sélection de la langue et l'accès Administrateur
 langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / Idioma / اللغة", list(traductions.keys()))
 t = traductions[langue_choisie]
