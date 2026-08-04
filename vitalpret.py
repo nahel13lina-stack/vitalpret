@@ -134,11 +134,8 @@ traductions = {
         "inst_android": "On Android (Chrome): Tap the three dots, then select 'Install app'.",
         "inst_iphone": "On iPhone / iPad (Safari): Tap the share button, then select 'Add to Home Screen'.",
         "inst_pc": "On Computer: Click the install icon in the address bar.",
-        "section_compte": "Account Type",
-        "choix_compte": "Select your profile",
-        "section_materiel": "Medical Equipment Management & Transaction Type",
-        "choix_transaction": "Select the nature of the offer / request",
-    }
+        
+    },
     "Arabe": {
         "titre_principal": "فيتال بري - المنصة الدولية للصحة والتضامن",
         "sous_titre": "ربط تضامني للمعدات الطبية العاجلة والمشاركة، الإعارة أو البيع.",
@@ -172,10 +169,7 @@ traductions = {
         "inst_android": "على أندرويد: اضغط على النقاط الثلاث ثم اختر 'تثبيت التطبيق'.",
         "inst_iphone": "على آيفون: اضغط على زر المشاركة ثم 'إضافة إلى الشاشة الرئيسية'.",
         "inst_pc": "على الكمبيوتر: اضغط على رمز التثبيت في شريط العنوان."
-        "section_compte": "نوع الحساب",
-        "choix_compte": "بحث عن ملفك الشخصي",
-        "section_materiel": "إدارة المعدات الطبية وننوع المعاملة",
-        "choix_transaction": "اختر طبيعة العرض / الطلب",
+        
     },
     "Espagnol": {
         "titre_principal": "VitalPrêt - Plataforma Internacional de Salud y Solidaridad",
@@ -210,10 +204,8 @@ traductions = {
         "inst_android": "En Android (Chrome): Toque los tres puntos y seleccione 'Instalar aplicación'.",
         "inst_iphone": "En iPhone / iPad (Safari): Toque el botón compartir y seleccione 'Añadir a la pantalla de inicio'.",
         "inst_pc": "En Computadora: Haga clic en el icono de instalación en la barra de direcciones."
-        "section_compte": "Tipo de cuenta",
-        "choix_compte": "Buscar su perfil",
-        "section_materiel": "Gestión de material médico y tipo de transacción",
-        "choix_transaction": "Seleccionar la naturaleza de la oferta / solicitud",
+        
+        
     },
     "Allemand": {
         "titre_principal": "VitalPrêt - Internationale Gesundheits- und Solidaritätsplattform",
@@ -248,10 +240,7 @@ traductions = {
         "inst_android": "Auf Android: Tippen Sie auf die drei Punkte und wählen Sie 'App installieren'.",
         "inst_iphone": "Auf iPhone: Tippen Sie auf das Teilen-Symbol und wählen Sie 'Zum Home-Bildschirm'.",
         "inst_pc": "Auf PC: Klicken Sie auf das Installieren-Symbol in der Adressleiste."
-        "section_compte": "Kontotyp",
-        "choix_compte": "Profil suchen",
-        "section_materiel": "Verwaltung von medizinischem Material & Transaktionsart",
-        "choix_transaction": "Art des Angebots / der Anfrage auswählen",
+        
     },
     "Russe": {
         "titre_principal": "VitalPrêt - Международная платформа здоровья и солидарности",
@@ -286,10 +275,7 @@ traductions = {
         "inst_android": "На Android: Нажмите три точки и выберите 'Установить приложение'.",
         "inst_iphone": "На iPhone: Нажмите «Поделиться» и выберите 'На экран «Домой»'.",
         "inst_pc": "На ПК: Нажмите значок установки в адресной строке."
-        "section_compte": "Тип аккаунта",
-        "choix_compte": "Поиск вашего профиля",
-        "section_materiel": "Управление медицинским оборудованием и тип транзакции",
-        "choix_transaction": "Выберите тип предложения / запроса",
+        
     },
     "Mandarin": }
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
@@ -324,10 +310,7 @@ traductions = {
         "inst_android": "安卓手机：点击右上角三个点，选择 '安装应用'。",
         "inst_iphone": "苹果手机：点击分享按钮，选择 '添加到主屏幕'。",
         "inst_pc": ",电脑端：点击浏览器地址栏右侧的安装图标。"
-        "section_compte": "账户类型",
-        "choix_compte": "搜索您的个人资料",
-        "section_materiel": "医疗设备管理与交易类型",
-        "choix_transaction": "选择供求性质",
+        
     }
 
 # Barre latérale pour la sélection de la langue et l'accès Administrateur
