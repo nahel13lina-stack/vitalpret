@@ -101,7 +101,7 @@ traductions = {
         "inst_iphone": "Sur iPhone / iPad (Safari) : Appuyez sur le bouton de partage, puis sélectionnez 'Sur l'écran d'accueil'.",
         "inst_pc": "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse."
     },
-"Anglais": {
+    "Anglais": {
         "titre_principal": "VitalPrêt - International Health & Solidarity Platform",
         "sous_titre": "Solidarity networking for emergency medical equipment, sharing, loan or sale.",
         "section_notif": "🔔 Live Notification Center",
@@ -213,7 +213,7 @@ traductions = {
         "inst_iphone": "En iPhone / iPad (Safari): Toque el botón compartir y seleccione 'Añadir a la pantalla de inicio'.",
         "inst_pc": "En Computadora: Haga clic en el icono de instalación en la barra de direcciones."
     },
-   "Allemand": {
+    "Allemand": {
         "titre_principal": "VitalPrêt - Internationale Gesundheits- und Solidaritätsplattform",
         "sous_titre": "Solidarische Vernetzung für medizinische Notfallausrüstung, Verleih oder Verkauf.",
         "section_notif": "🔔 Live-Benachrichtigungscenter",
@@ -247,7 +247,7 @@ traductions = {
         "inst_iphone": "Auf iPhone: Tippen Sie auf das Teilen-Symbol und wählen Sie 'Zum Home-Bildschirm'.",
         "inst_pc": "Auf PC: Klicken Sie auf das Installieren-Symbol in der Adressleiste."
     },
-   "Russe": {
+    "Russe": {
         "titre_principal": "VitalPrêt - Международная платформа здоровья и солидарности",
         "sous_titre": "Связь для экстренного медицинского оборудования, аренды или продажи.",
         "section_notif": "🔔 Центр живых уведомлений",
@@ -281,7 +281,7 @@ traductions = {
         "inst_iphone": "На iPhone: Нажмите «Поделиться» и выберите 'На экран «Домой»'.",
         "inst_pc": "На ПК: Нажмите значок установки в адресной строке."
     },
-   "Mandarin": {
+    "Mandarin": {
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
         "sous_titre": "紧急医疗设备共享、借用、租赁或出售的互助网络。",
         "section_notif": "🔔 实时通知中心",
@@ -315,6 +315,7 @@ traductions = {
         "inst_iphone": "苹果手机：点击分享按钮，选择 '添加到主屏幕'。",
         "inst_pc": "电脑端：点击浏览器地址栏右侧的安装图标。"
     }
+
 # Barre latérale pour la sélection de la langue et l'accès Administrateur
 langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / Idioma / اللغة", list(traductions.keys()))
 t = traductions[langue_choisie]
