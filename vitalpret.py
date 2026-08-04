@@ -311,7 +311,7 @@ traductions = {
         "inst_iphone": "苹果手机：点击分享按钮，选择 '添加到主屏幕'。",
         "inst_pc": ",电脑端：点击浏览器地址栏右侧的安装图标。"
         
-    }
+    }.
 
 # Barre latérale pour la sélection de la langue et l'accès Administrateur
 langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / Idioma / اللغة", list(traductions.keys()))
