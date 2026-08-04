@@ -56,14 +56,14 @@ db = chargeur_donnees()
 # Dictionnaire complet des traductions incluant la liste élargie du matériel
 traductions = {
     "Français": {
-        "titre_principal": "VitalPrêt - Plateforme Internationale de Santé et de Solidarité",
-        "sous_titre": "Mise en relation solidaire pour le matériel médical d'urgence, le partage, le prêt ou la vente.",
+        "titre_principal": "VitalPrêt - Plateforme Internationale de Santé & Solidarité",
+        "sous_titre": "Réseau de solidarité pour le matériel médical d'urgence, le partage, le prêt ou la vente.",
         "section_notif": "🔔 Centre de Notifications en Direct",
         "aucune_notif": "Aucune nouvelle notification pour le moment.",
         "section_compte": "Type de Compte",
         "choix_compte": "Sélectionnez votre profil :",
         "options_compte": ["Particulier", "Professionnel / Association / Pharmacie / ONG"],
-        "section_materiel": "Gestion du Matériel Médical & Type de Transaction",
+        "section_materiel": "Gestion du Matériel Médical et Type de Transaction",
         "choix_transaction": "Sélectionnez la nature de l'offre / demande :",
         "options_transaction": ["Don", "Prêt", "Vente", "Aide financière / Don direct"],
         "choix_materiel": "Sélectionnez le type de matériel :",
@@ -99,7 +99,7 @@ traductions = {
         "texte_installation": "Vous pouvez installer cet outil directement sur votre téléphone, tablette ou ordinateur :",
         "inst_android": "Sur Android (Chrome) : Appuyez sur les trois points, puis choisissez 'Installer l'application'.",
         "inst_iphone": "Sur iPhone / iPad (Safari) : Appuyez sur le bouton de partage, puis sélectionnez 'Sur l'écran d'accueil'.",
-        "inst_pc": "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse.",
+        "inst_pc": "Sur Ordinateur : Cliquez sur l'icône d'installation dans la barre d'adresse."
     },
     "Anglais": {
         "titre_principal": "VitalPrêt - International Health & Solidarity Platform",
@@ -133,8 +133,7 @@ traductions = {
         "texte_installation": "You can install this tool directly on your phone, tablet, or computer:",
         "inst_android": "On Android (Chrome): Tap the three dots, then select 'Install app'.",
         "inst_iphone": "On iPhone / iPad (Safari): Tap the share button, then select 'Add to Home Screen'.",
-        "inst_pc": "On Computer: Click the install icon in the address bar.",
-        
+        "inst_pc": "On Computer: Click the install icon in the address bar."
     },
     "Arabe": {
         "titre_principal": "فيتال بري - المنصة الدولية للصحة والتضامن",
@@ -169,7 +168,6 @@ traductions = {
         "inst_android": "على أندرويد: اضغط على النقاط الثلاث ثم اختر 'تثبيت التطبيق'.",
         "inst_iphone": "على آيفون: اضغط على زر المشاركة ثم 'إضافة إلى الشاشة الرئيسية'.",
         "inst_pc": "على الكمبيوتر: اضغط على رمز التثبيت في شريط العنوان."
-        
     },
     "Espagnol": {
         "titre_principal": "VitalPrêt - Plataforma Internacional de Salud y Solidaridad",
@@ -204,8 +202,6 @@ traductions = {
         "inst_android": "En Android (Chrome): Toque los tres puntos y seleccione 'Instalar aplicación'.",
         "inst_iphone": "En iPhone / iPad (Safari): Toque el botón compartir y seleccione 'Añadir a la pantalla de inicio'.",
         "inst_pc": "En Computadora: Haga clic en el icono de instalación en la barra de direcciones."
-        
-        
     },
     "Allemand": {
         "titre_principal": "VitalPrêt - Internationale Gesundheits- und Solidaritätsplattform",
@@ -240,7 +236,6 @@ traductions = {
         "inst_android": "Auf Android: Tippen Sie auf die drei Punkte und wählen Sie 'App installieren'.",
         "inst_iphone": "Auf iPhone: Tippen Sie auf das Teilen-Symbol und wählen Sie 'Zum Home-Bildschirm'.",
         "inst_pc": "Auf PC: Klicken Sie auf das Installieren-Symbol in der Adressleiste."
-        
     },
     "Russe": {
         "titre_principal": "VitalPrêt - Международная платформа здоровья и солидарности",
@@ -275,9 +270,8 @@ traductions = {
         "inst_android": "На Android: Нажмите три точки и выберите 'Установить приложение'.",
         "inst_iphone": "На iPhone: Нажмите «Поделиться» и выберите 'На экран «Домой»'.",
         "inst_pc": "На ПК: Нажмите значок установки в адресной строке."
-        
     },
-    "Mandarin": }
+    "Mandarin": {
         "titre_principal": "VitalPrêt - 国际健康与守望相助平台",
         "sous_titre": "紧急医疗设备共享、借用、租赁或出售的互助网络。",
         "section_notif": "🔔 实时通知中心",
@@ -309,10 +303,9 @@ traductions = {
         "texte_installation": "您可以直接将此工具安装到手机或电脑上：",
         "inst_android": "安卓手机：点击右上角三个点，选择 '安装应用'。",
         "inst_iphone": "苹果手机：点击分享按钮，选择 '添加到主屏幕'。",
-        "inst_pc": ",电脑端：点击浏览器地址栏右侧的安装图标。"
-        
-    }.
-
+        "inst_pc": "电脑端：点击浏览器地址栏右侧的安装图标。"
+    }
+}
 # Barre latérale pour la sélection de la langue et l'accès Administrateur
 langue_choisie = st.sidebar.selectbox("🌐 Langue / Language / Idioma / اللغة", list(traductions.keys()))
 t = traductions[langue_choisie]
